@@ -9,6 +9,8 @@ gem 'rails', '~> 5.2.3'
 gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+# Use as_json_representations as the JSON format generator
+gem 'as_json_representations'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
