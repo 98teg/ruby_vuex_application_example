@@ -5,12 +5,12 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
 
-    render json: @posts
+    render_json @posts
   end
 
   # GET /posts/1
   def show
-    render json: @post
+    render_json @post
   end
 
   # POST /posts
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      render json: @post, status: :created, location: @post
+      render json: {data: posts.as_json(representation: :basic)}, status: :created, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   def update
     if @post.update(post_params)
-      render json: @post
+      render_json @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -48,5 +48,9 @@ class PostsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def post_params
     params.require(:post).permit(:title, :content, :user_id)
+  end
+
+  def render_json(posts)
+    render json: {data: posts.as_json(representation: :basic)}
   end
 end

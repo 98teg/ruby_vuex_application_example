@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include AsJsonRepresentations
+
   has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 63}
@@ -6,4 +8,12 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {maximum: 255},
                     format: {with: VALID_EMAIL_REGEX},
                     uniqueness: true
+
+  representation :basic do
+    {
+      name: name,
+      email: email,
+      creation: created_at
+    }
+  end
 end
