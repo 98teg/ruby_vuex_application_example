@@ -30,14 +30,20 @@ class User < ApplicationRecord
     def order(users, sort)
       if sort.nil?
         users
-      elsif sort.include? '-name'
-        users.sort_by(&:name).reverse
-      elsif sort.include? 'name'
-        users.sort_by(&:name)
-      elsif sort.include? '-email'
-        users.sort_by(&:email).reverse
-      elsif sort.include? 'email'
-        users.sort_by(&:email)
+      else
+        @order_criteria = ''
+
+        array = sort.split(',')
+
+        array.each do |item|
+          @order_criteria = if @order_criteria.empty?
+                              order_criteria(item)
+                            else
+                              "#{@order_criteria}, #{order_criteria(item)}"
+                            end
+        end
+
+        users.order(@order_criteria)
       end
     end
 
@@ -60,6 +66,18 @@ class User < ApplicationRecord
       end
 
       @criteria
+    end
+
+    def order_criteria(item)
+      if item == 'name'
+        'name ASC'
+      elsif item == '-name'
+        'name DESC'
+      elsif item == 'email'
+        'email ASC'
+      elsif item == '-email'
+        'email DESC'
+      end
     end
   end
 end
