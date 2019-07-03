@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.get(params[:filter])
 
     render_json @posts
   end
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
-      render json: {data: posts.as_json(representation: :basic)}, status: :created, location: @post
+      render json: {data: @post.as_json(representation: :basic)}, status: :created, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end

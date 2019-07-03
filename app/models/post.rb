@@ -14,19 +14,64 @@ class Post < ApplicationRecord
     }
   end
 
-  def self.get(filter)
-    # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
-    if filter.nil? || (filter[:title].nil? && filter[:content].nil?)
-      Post.all
-    # Si solo tenemos el título, se devuelven aquellos posts cuyo título lo incluya
-    elsif filter[:content].nil?
-      Post.where('title LIKE ?', "%#{filter[:title]}%")
-    # Si solo tenemos el contenido, se devuelven aquellos cuyo contenido lo incluya
-    elsif filter[:title].nil?
-      Post.where('content LIKE ?', "%#{filter[:content]}%")
-    # Si tenemos ambos, aplicamos los dos criterios anteriores
-    else
-      Post.where('title LIKE ? and content LIKE ?', "%#{filter[:title]}%", "%#{filter[:content]}%")
+  class << self
+    def get(filter)
+      # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
+      if filter.nil? || empty(filter)
+        Post.all
+      else
+        Post.where(construct_criteria(filter))
+      end
+    end
+
+    private
+
+    def empty(filter)
+      filter[:title].nil? && filter[:content].nil? &&
+        filter[:since].nil? && filter[:until].nil? && filter[:author].nil?
+    end
+
+    def construct_criteria(filter)
+      @first_criteria = true
+
+      unless filter[:title].nil?
+        @criteria = "title LIKE '%#{filter[:title]}%'"
+        @first_criteria = false
+      end
+
+      unless filter[:content].nil?
+        @criteria = add_criteria(@criteria, @first_criteria,
+                                 "content LIKE '%#{filter[:content]}%'")
+        @first_criteria = false
+      end
+
+      unless filter[:since].nil?
+        @criteria = add_criteria(@criteria, @first_criteria,
+                                 "created_at > '#{filter[:since]}'")
+        @first_criteria = false
+      end
+
+      unless filter[:until].nil?
+        @criteria = add_criteria(@criteria, @first_criteria,
+                                 "created_at < '#{filter[:until]}'")
+        @first_criteria = false
+      end
+
+      unless filter[:author].nil?
+        @criteria = add_criteria(@criteria, @first_criteria,
+                                 "user_id = '#{filter[:author]}'")
+        @first_criteria = false
+      end
+
+      @criteria
+    end
+
+    def add_criteria(criteria, first_criteria, condition)
+      if first_criteria
+        condition
+      else
+        "#{criteria} and #{condition}"
+      end
     end
   end
 end
