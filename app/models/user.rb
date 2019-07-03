@@ -16,4 +16,16 @@ class User < ApplicationRecord
       creation: created_at
     }
   end
+
+  def self.get(filter)
+    if filter.nil? || (filter[:name].nil? && filter[:email].nil?)
+      User.all
+    elsif filter[:email].nil?
+      User.where('name LIKE ?', "%#{filter[:name]}%")
+    elsif filter[:name].nil?
+      User.find_by email: filter[:email]
+    else
+      User.where('name LIKE ? and email = ?', "%#{filter[:name]}%", filter[:email])
+    end
+  end
 end
