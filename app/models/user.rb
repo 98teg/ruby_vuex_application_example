@@ -17,19 +17,35 @@ class User < ApplicationRecord
     }
   end
 
-  def self.get(filter)
-    # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
-    if filter.nil? || (filter[:name].nil? && filter[:email].nil?)
-      User.all
-    # Si solo tenemos el nombre, se devuelven aquellos usuarios cuyo nombre lo incluya
-    elsif filter[:email].nil?
-      User.where('name LIKE ?', "%#{filter[:name]}%")
-    # Si solo tenemos el correo, se devuelven aquellos cuyo correo coincida completamente
-    elsif filter[:name].nil?
-      User.find_by email: filter[:email]
-    # Si tenemos ambos, aplicamos los dos criterios anteriores
-    else
-      User.where('name LIKE ? and email = ?', "%#{filter[:name]}%", filter[:email])
+  class << self
+    def get(filter)
+      # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
+      if filter.nil? || (filter[:name].nil? && filter[:email].nil?)
+        User.all
+      else
+        User.where(construct_criteria(filter))
+      end
+    end
+
+    private
+
+    def construct_criteria(filter)
+      @first_criteria = true
+
+      unless filter[:name].nil?
+        @criteria = "name LIKE '%#{filter[:name]}%'"
+        @first_criteria = false
+      end
+
+      unless filter[:email].nil?
+        @criteria = if @first_criteria
+                      "email = '#{filter[:email]}'"
+                    else
+                      "#{@criteria} and email = '#{filter[:email]}'"
+                    end
+      end
+
+      @criteria
     end
   end
 end
