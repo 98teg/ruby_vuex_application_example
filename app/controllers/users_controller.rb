@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.get(params[:filter])
+    @users = User.order(@users, params[:sort])
 
     render_json @users
   end

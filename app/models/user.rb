@@ -27,6 +27,20 @@ class User < ApplicationRecord
       end
     end
 
+    def order(users, sort)
+      if sort.nil?
+        users
+      elsif sort.include? '-name'
+        users.sort_by(&:name).reverse
+      elsif sort.include? 'name'
+        users.sort_by(&:name)
+      elsif sort.include? '-email'
+        users.sort_by(&:email).reverse
+      elsif sort.include? 'email'
+        users.sort_by(&:email)
+      end
+    end
+
     private
 
     def construct_criteria(filter)
