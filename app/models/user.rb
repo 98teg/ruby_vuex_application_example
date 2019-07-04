@@ -17,6 +17,9 @@ class User < ApplicationRecord
     }
   end
 
+  paginates_per 10
+  max_paginates_per 100
+
   class << self
     def get(filter)
       # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
@@ -47,24 +50,10 @@ class User < ApplicationRecord
       end
     end
 
-    def paginate(users, page)
-      if page.nil?
-        users
-      else
-        @page = if page[:number].nil?
-                  0
-                else
-                  page[:number].to_i
-                end
-
-        @size = if page[:size].nil?
-                  10
-                else
-                  page[:size].to_i
-                end
-
-        users.limit(@size).offset(@page * @size)
-      end
+    def paginate(posts, page)
+      @number = page[:number] unless page.nil?
+      @size = page[:size] unless page.nil?
+      posts.page(@number).per(@size)
     end
 
     private
