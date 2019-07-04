@@ -11,8 +11,10 @@ gem 'sqlite3'
 gem 'puma', '~> 3.11'
 # Use as_json_representations as the JSON format generator
 gem 'as_json_representations'
-# User kaminari as the pagination gem
+# Use kaminari as the pagination gem
 gem 'kaminari'
+# Use carrierwave to upload files
+gem 'carrierwave', '>= 2.0.0.rc', '< 3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

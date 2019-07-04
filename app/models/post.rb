@@ -1,6 +1,9 @@
 class Post < ApplicationRecord
   include AsJsonRepresentations
 
+  require 'carrierwave/orm/activerecord'
+  mount_uploader :image, PostImageUploader
+
   belongs_to :user
   validates :user_id, presence: true
   validates :content, presence: true
@@ -9,6 +12,7 @@ class Post < ApplicationRecord
     {
       title: title,
       content: content,
+      image: image,
       creation: created_at,
       author: user_id
     }

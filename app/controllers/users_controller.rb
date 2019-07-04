@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:data).permit(:name, :email)
   end
 
   def render_json(users)
