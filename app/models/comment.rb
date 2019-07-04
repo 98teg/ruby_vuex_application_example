@@ -1,20 +1,18 @@
-class Post < ApplicationRecord
+class Comment < ApplicationRecord
   include AsJsonRepresentations
 
-  require 'carrierwave/orm/activerecord'
-  mount_uploader :image, PostImageUploader
-
   belongs_to :user
-  has_many :comments, dependent: :destroy
+  belongs_to :post
+
   validates :user_id, presence: true
+  validates :post_id, presence: true
   validates :content, presence: true
 
   representation :basic do
     {
-      title: title,
       content: content,
-      image: image,
       creation: created_at,
+      post_id: post_id,
       user_id: user_id
     }
   end
@@ -26,15 +24,15 @@ class Post < ApplicationRecord
     def get(filter)
       # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
       if filter.nil? || empty(filter)
-        Post.all
+        Comment.all
       else
-        Post.where(construct_criteria(filter))
+        Comment.where(construct_criteria(filter))
       end
     end
 
-    def order(posts, sort)
+    def order(comments, sort)
       if sort.nil?
-        posts
+        comments
       else
         @order_criteria = ''
 
@@ -48,30 +46,25 @@ class Post < ApplicationRecord
                             end
         end
 
-        posts.includes(:user).order(@order_criteria)
+        comments.includes(:user, :post).order(@order_criteria)
       end
     end
 
-    def paginate(posts, page)
+    def paginate(comments, page)
       @number = page[:number] unless page.nil?
       @size = page[:size] unless page.nil?
-      posts.page(@number).per(@size)
+      comments.page(@number).per(@size)
     end
 
     private
 
     def empty(filter)
-      filter[:title].nil? && filter[:content].nil? &&
-        filter[:since].nil? && filter[:until].nil? && filter[:user_id].nil?
+      filter[:content].nil? && filter[:since].nil? && filter[:until].nil? &&
+        filter[:user_id].nil? && filter[:post_id].nil?
     end
 
     def construct_criteria(filter)
       @first_criteria = true
-
-      unless filter[:title].nil?
-        @criteria = "title LIKE '%#{filter[:title]}%'"
-        @first_criteria = false
-      end
 
       unless filter[:content].nil?
         @criteria = add_criteria(@criteria, @first_criteria,
@@ -97,6 +90,12 @@ class Post < ApplicationRecord
         @first_criteria = false
       end
 
+      unless filter[:post_id].nil?
+        @criteria = add_criteria(@criteria, @first_criteria,
+                                 "post_id = '#{filter[:post_id]}'")
+        @first_criteria = false
+      end
+
       @criteria
     end
 
@@ -110,9 +109,9 @@ class Post < ApplicationRecord
 
     def order_criteria(item)
       @criteria = ''
-      @criteria = 'title' if item.include? 'title'
       @criteria = 'created_at' if item.include? 'created_at'
       @criteria = 'users.name' if item.include? 'user_name'
+      @criteria = 'posts.title' if item.include? 'post_title'
 
       @criteria = if item[0] == '-'
                     @criteria + ' DESC'
