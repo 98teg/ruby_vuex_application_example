@@ -24,6 +24,26 @@ class Post < ApplicationRecord
       end
     end
 
+    def order(posts, sort)
+      if sort.nil?
+        posts
+      else
+        @order_criteria = ''
+
+        array = sort.split(',')
+
+        array.each do |item|
+          @order_criteria = if @order_criteria.empty?
+                              order_criteria(item)
+                            else
+                              "#{@order_criteria}, #{order_criteria(item)}"
+                            end
+        end
+
+        posts.includes(:user).order(@order_criteria)
+      end
+    end
+
     private
 
     def empty(filter)
@@ -72,6 +92,19 @@ class Post < ApplicationRecord
       else
         "#{criteria} and #{condition}"
       end
+    end
+
+    def order_criteria(item)
+      @criteria = ''
+      @criteria = 'title' if item.include? 'title'
+      @criteria = 'created_at' if item.include? 'created_at'
+      @criteria = 'users.name' if item.include? 'author'
+
+      @criteria = if item[0] == '-'
+                    @criteria + ' DESC'
+                  else
+                    @criteria + ' ASC'
+                  end
     end
   end
 end

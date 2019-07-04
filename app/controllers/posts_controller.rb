@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     @posts = Post.get(params[:filter])
+    @posts = Post.order(@posts, params[:sort])
 
     render_json @posts
   end
