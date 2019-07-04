@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def index
     @users = User.get(params[:filter])
     @users = User.order(@users, params[:sort])
+    @users = User.paginate(@users, params[:page])
 
     render_json @users
   end

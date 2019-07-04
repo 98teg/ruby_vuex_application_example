@@ -44,6 +44,26 @@ class Post < ApplicationRecord
       end
     end
 
+    def paginate(posts, page)
+      if page.nil?
+        posts
+      else
+        @page = if page[:number].nil?
+                  0
+                else
+                  page[:number].to_i
+                end
+
+        @size = if page[:size].nil?
+                  10
+                else
+                  page[:size].to_i
+                end
+
+        posts.limit(@size).offset(@page * @size)
+      end
+    end
+
     private
 
     def empty(filter)

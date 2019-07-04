@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.get(params[:filter])
     @posts = Post.order(@posts, params[:sort])
+    @posts = Post.paginate(@posts, params[:page])
 
     render_json @posts
   end

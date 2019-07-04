@@ -47,6 +47,26 @@ class User < ApplicationRecord
       end
     end
 
+    def paginate(users, page)
+      if page.nil?
+        users
+      else
+        @page = if page[:number].nil?
+                  0
+                else
+                  page[:number].to_i
+                end
+
+        @size = if page[:size].nil?
+                  10
+                else
+                  page[:size].to_i
+                end
+
+        users.limit(@size).offset(@page * @size)
+      end
+    end
+
     private
 
     def construct_criteria(filter)
