@@ -20,6 +20,8 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
 
     if @comment.save
+      CommentNotificationMailer.with(comment: @comment)
+                               .send_notification.deliver_later
       render json: @comment, status: :created, location: @comment
     else
       render json: @comment.errors, status: :unprocessable_entity

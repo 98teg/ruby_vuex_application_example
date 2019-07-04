@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Alguien ha comentado en tu post, <%= @post.title %></h1>
+    <p>
+      El usuario <%= User.find(@comment.user_id).name %>
+      ha realizado un comentario.<br>
+    </p>
+  </body>
+</html>
