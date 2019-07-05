@@ -17,6 +17,8 @@ gem 'kaminari'
 gem 'carrierwave', '>= 2.0.0.rc', '< 3.0'
 # Use to handle authentification
 gem 'rails_jwt_auth'
+# User to handle permissions
+gem 'rails_authorize'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

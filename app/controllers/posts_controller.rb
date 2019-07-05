@@ -1,6 +1,14 @@
 class PostsController < ApplicationController
+  include RailsAuthorize
+
   before_action :authenticate?, only: %i[create update destroy]
   before_action :set_post, only: %i[show update destroy]
+
+  rescue_from RailsAuthorize::NotAuthorizedError, with: :render_403
+
+  def render_403
+    head 403
+  end
 
   def authenticate?
     render status: :unauthorized unless authenticate
@@ -22,7 +30,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.merge(user_id: current_user.id))
 
     if @post.save
       render json: {data: @post.as_json(representation: :basic)}, status: :created, location: @post
@@ -33,7 +41,8 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
+    authorize @post
+    if @post.update(post_params.merge(user_id: current_user.id))
       render_json @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -42,6 +51,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   def destroy
+    authorize @post
     @post.destroy
   end
 
@@ -54,7 +64,7 @@ class PostsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def post_params
-    params.require(:data).permit(:title, :content, :user_id, :image)
+    params.require(:data).permit(:title, :content, :image)
   end
 
   def render_json(posts)
