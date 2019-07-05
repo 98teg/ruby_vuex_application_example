@@ -1,5 +1,10 @@
 class PostsController < ApplicationController
+  before_action :authenticate?, only: %i[create update destroy]
   before_action :set_post, only: %i[show update destroy]
+
+  def authenticate?
+    render status: :unauthorized unless authenticate
+  end
 
   # GET /posts
   def index

@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
+  before_action :authenticate?, only: %i[create update destroy]
   before_action :set_comment, only: %i[show update destroy]
+
+  def authenticate?
+    render status: :unauthorized unless authenticate
+  end
 
   # GET /comments
   def index

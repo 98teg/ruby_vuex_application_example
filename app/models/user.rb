@@ -1,14 +1,18 @@
 class User < ApplicationRecord
   include AsJsonRepresentations
+  include RailsJwtAuth::Authenticatable
+  include RailsJwtAuth::Confirmable
+  include RailsJwtAuth::Recoverable
+  include RailsJwtAuth::Trackable
+  include RailsJwtAuth::Invitable
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 63}
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, length: {maximum: 255},
-                    format: {with: VALID_EMAIL_REGEX},
-                    uniqueness: true
+  validates :email, presence: true,
+                    uniqueness: true,
+                    format: URI::MailTo::EMAIL_REGEXP
 
   representation :basic do
     {

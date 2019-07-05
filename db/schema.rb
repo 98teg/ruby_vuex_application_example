@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_04_095944) do
+ActiveRecord::Schema.define(version: 2019_07_04_115950) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -35,8 +35,22 @@ ActiveRecord::Schema.define(version: 2019_07_04_095944) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.string "password_digest"
+    t.string "auth_tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "unconfirmed_email"
+    t.string "confirmation_token"
+    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.string "last_sign_in_ip"
+    t.datetime "last_sign_in_at"
+    t.string "invitation_token"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at"
   end
 
 end
