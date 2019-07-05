@@ -19,6 +19,8 @@ gem 'carrierwave', '>= 2.0.0.rc', '< 3.0'
 gem 'rails_jwt_auth'
 # User to handle permissions
 gem 'rails_authorize'
+# User to handle roles
+gem 'rolify'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

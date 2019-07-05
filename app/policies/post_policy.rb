@@ -8,10 +8,10 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    user.id == target.user_id
+    user.id == target.user_id || user.has_role?(:admin)
   end
 
   def destroy?
-    user.id == target.user_id
+    user.id == target.user_id || user.has_role?(:admin)
   end
 end

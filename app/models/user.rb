@@ -1,10 +1,16 @@
 class User < ApplicationRecord
+  rolify
   include AsJsonRepresentations
   include RailsJwtAuth::Authenticatable
   include RailsJwtAuth::Confirmable
   include RailsJwtAuth::Recoverable
   include RailsJwtAuth::Trackable
   include RailsJwtAuth::Invitable
+  after_create :assign_default_role
+
+  def assign_default_role
+    add_role(:user) if roles.blank?
+  end
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy

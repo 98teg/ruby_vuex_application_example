@@ -8,10 +8,10 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
-    current_user.id == target.user_id
+    user.id == target.user_id || user.has_role?(:admin)
   end
 
   def destroy?
-    current_user.id == target.user_id
+    user.id == target.user_id || user.has_role?(:admin)
   end
 end
