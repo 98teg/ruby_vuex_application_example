@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  validates :name, presence: true, length: {maximum: 63}
+  validates :name, presence: true, length: {maximum: 64}
   validates :email, presence: true,
                     uniqueness: true,
                     format: URI::MailTo::EMAIL_REGEXP
@@ -34,7 +34,7 @@ class User < ApplicationRecord
   class << self
     def get(filter)
       # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
-      if filter.nil? || (filter[:name].nil? && filter[:email].nil?)
+      if filter.empty? || (filter[:name].nil? && filter[:email].nil?)
         User.all
       else
         User.where(construct_criteria(filter))
@@ -42,7 +42,7 @@ class User < ApplicationRecord
     end
 
     def order(users, sort)
-      if sort.nil?
+      if sort.empty?
         users
       else
         @order_criteria = ''
