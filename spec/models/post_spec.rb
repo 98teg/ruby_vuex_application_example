@@ -19,8 +19,6 @@ RSpec.describe Post, type: :model do
 
   describe 'Methods' do
     describe '.get' do
-      Faker::UniqueGenerator.clear
-
       it 'get all posts' do
         FactoryBot.create_list(:post, 3)
         filter = {}
@@ -68,8 +66,6 @@ RSpec.describe Post, type: :model do
     end
 
     describe '.sort' do
-      Faker::UniqueGenerator.clear
-
       it 'any sort at all' do
         FactoryBot.create_list(:post, 3)
         filter = {}
@@ -87,7 +83,7 @@ RSpec.describe Post, type: :model do
       end
 
       it 'sort by creation date' do
-        FactoryBot.create_list(:user, 3)
+        FactoryBot.create_list(:post, 3)
         filter = {}
         sort = 'created_at'
         expect(Post.order(Post.get(filter), sort)).to eq Post.get(filter: '')
@@ -97,8 +93,8 @@ RSpec.describe Post, type: :model do
                                                              .order('created_at DESC')
       end
 
-      it 'sort by author name' do
-        FactoryBot.create_list(:user, 3)
+      it 'sort by author\'s name' do
+        FactoryBot.create_list(:post, 3)
         filter = {}
         sort = 'user_name'
         expect(Post.order(Post.get(filter), sort)).to eq Post.get(filter: '').includes(:user)

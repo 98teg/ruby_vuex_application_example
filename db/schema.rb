@@ -12,19 +12,8 @@
 
 ActiveRecord::Schema.define(version: 2019_07_05_114154) do
 
-  create_table "admins", force: :cascade do |t|
-    t.string "name"
-    t.string "resource_type"
-    t.integer "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_admins_on_name_and_resource_type_and_resource_id"
-    t.index ["name"], name: "index_admins_on_name"
-    t.index ["resource_type", "resource_id"], name: "index_admins_on_resource_type_and_resource_id"
-  end
-
   create_table "comments", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.integer "user_id"
     t.integer "post_id"
     t.datetime "created_at", null: false
@@ -73,14 +62,6 @@ ActiveRecord::Schema.define(version: 2019_07_05_114154) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.datetime "invitation_created_at"
-  end
-
-  create_table "users_admins", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "admin_id"
-    t.index ["admin_id"], name: "index_users_admins_on_admin_id"
-    t.index ["user_id", "admin_id"], name: "index_users_admins_on_user_id_and_admin_id"
-    t.index ["user_id"], name: "index_users_admins_on_user_id"
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
