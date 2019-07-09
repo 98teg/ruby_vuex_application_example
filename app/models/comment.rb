@@ -67,43 +67,38 @@ class Comment < ApplicationRecord
       @first_criteria = true
 
       unless filter[:content].nil?
-        @criteria = add_criteria(@criteria, @first_criteria,
-                                 "content LIKE '%#{filter[:content]}%'")
+        @criteria = add_criteria("content LIKE '%#{filter[:content]}%'")
         @first_criteria = false
       end
 
       unless filter[:since].nil?
-        @criteria = add_criteria(@criteria, @first_criteria,
-                                 "created_at > '#{filter[:since]}'")
+        @criteria = add_criteria("created_at > '#{filter[:since]}'")
         @first_criteria = false
       end
 
       unless filter[:until].nil?
-        @criteria = add_criteria(@criteria, @first_criteria,
-                                 "created_at < '#{filter[:until]}'")
+        @criteria = add_criteria("created_at < '#{filter[:until]}'")
         @first_criteria = false
       end
 
       unless filter[:user_id].nil?
-        @criteria = add_criteria(@criteria, @first_criteria,
-                                 "user_id = '#{filter[:user_id]}'")
+        @criteria = add_criteria("user_id = '#{filter[:user_id]}'")
         @first_criteria = false
       end
 
       unless filter[:post_id].nil?
-        @criteria = add_criteria(@criteria, @first_criteria,
-                                 "post_id = '#{filter[:post_id]}'")
+        @criteria = add_criteria("post_id = '#{filter[:post_id]}'")
         @first_criteria = false
       end
 
       @criteria
     end
 
-    def add_criteria(criteria, first_criteria, condition)
-      if first_criteria
+    def add_criteria(condition)
+      if @first_criteria
         condition
       else
-        "#{criteria} and #{condition}"
+        "#{@criteria} and #{condition}"
       end
     end
 
