@@ -3,7 +3,7 @@ require 'timecop'
 
 FactoryBot.define do
   factory :user do
-    name { Faker::JapaneseMedia::OnePiece.unique.character }
+    name { Faker::Name.name }
     email { Faker::Internet.unique.email }
     password_digest { 'foobar' }
 
@@ -13,7 +13,7 @@ FactoryBot.define do
   factory :post do
     user
 
-    title { Faker::JapaneseMedia::OnePiece.unique.quote }
-    content { Faker::GreekPhilosophers.unique.quote }
+    title { Faker::JapaneseMedia::OnePiece.unique.island }
+    content { Faker::JapaneseMedia::OnePiece.unique.akuma_no_mi }
   end
 end
