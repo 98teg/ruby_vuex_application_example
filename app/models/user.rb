@@ -24,6 +24,7 @@ class User < ApplicationRecord
     {
       name: name,
       email: email,
+      id: id,
       creation: created_at
     }
   end
@@ -34,7 +35,7 @@ class User < ApplicationRecord
   class << self
     def get(filter)
       # Si no hay ningún filtro o los parámetros tienen valores nulos se devuelven todos
-      if filter.empty? || (filter[:name].nil? && filter[:email].nil?)
+      if filter.nil? || (filter[:name].nil? && filter[:email].nil?)
         User.all
       else
         User.where(construct_criteria(filter))
@@ -42,7 +43,7 @@ class User < ApplicationRecord
     end
 
     def order(users, sort)
-      if sort.empty?
+      if sort.nil?
         users
       else
         @order_criteria = ''

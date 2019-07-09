@@ -35,8 +35,7 @@ RSpec.describe User, type: :model do
     describe '.get' do
       it 'get all users' do
         FactoryBot.create_list(:user, 3)
-        filter = {}
-        expect(User.get(filter).length).to be 3
+        expect(User.get(nil).length).to be 3
       end
 
       it 'get an user using his name' do

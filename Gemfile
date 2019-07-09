@@ -21,6 +21,8 @@ gem 'rails_jwt_auth'
 gem 'rails_authorize'
 # Used to handle roles
 gem 'rolify'
+# To format rspec
+gem 'rubocop-rspec'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
