@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   validates :user_id, presence: true
+  validates :title, presence: true
   validates :content, presence: true
 
   representation :basic do
@@ -69,13 +70,13 @@ class Post < ApplicationRecord
       @first_criteria = true
 
       unless filter[:title].nil?
-        @criteria = "title LIKE '%#{filter[:title]}%'"
+        @criteria = "title LIKE '%#{filter[:title].clone.gsub("'", "''")}%'"
         @first_criteria = false
       end
 
       unless filter[:content].nil?
         @criteria = add_criteria(@criteria, @first_criteria,
-                                 "content LIKE '%#{filter[:content]}%'")
+                                 "content LIKE '%#{filter[:content].clone.gsub("'", "''")}%'")
         @first_criteria = false
       end
 
