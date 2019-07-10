@@ -16,7 +16,8 @@ class Post < ApplicationRecord
       content: content,
       image: image,
       creation: created_at,
-      user_id: user_id
+      user_id: user_id,
+      id: id
     }
   end
 
