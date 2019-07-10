@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate?, only: %i[show update destroy]
+  before_action :authenticate!, only: %i[show update destroy]
   before_action :set_user, only: %i[show update destroy]
-
-  def authenticate?
-    render status: :unauthorized unless authenticate
-  end
 
   # GET /users
   def index
@@ -22,6 +18,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
+    authorize @user
     if @user.update(user_params)
       render_json @user
     else
@@ -31,6 +28,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
+    authorize @user
     @user.destroy
   end
 
