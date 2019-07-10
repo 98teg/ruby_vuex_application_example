@@ -1,18 +1,8 @@
 class CommentsController < ApplicationController
   include RailsAuthorize
 
-  before_action :authenticate?, only: %i[create update destroy]
+  before_action :authenticate!, only: %i[create update destroy]
   before_action :set_comment, only: %i[show update destroy]
-
-  rescue_from RailsAuthorize::NotAuthorizedError, with: :render_403
-
-  def render_403
-    head 403
-  end
-
-  def authenticate?
-    render status: :unauthorized unless authenticate
-  end
 
   # GET /comments
   def index

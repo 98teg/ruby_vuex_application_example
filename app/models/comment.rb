@@ -13,7 +13,8 @@ class Comment < ApplicationRecord
       content: content,
       creation: created_at,
       post_id: post_id,
-      user_id: user_id
+      user_id: user_id,
+      id: id
     }
   end
 

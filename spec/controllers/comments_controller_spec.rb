@@ -1,13 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe PostsController, type: :controller do
+RSpec.describe CommentsController, type: :controller do
+  let(:comment) { FactoryBot.create(:comment) }
   let(:post1) { FactoryBot.create(:post) }
   let(:user) { FactoryBot.create(:user) }
-  let(:post_by_user) {
+  let(:comment_by_user) {
     lambda do |user|
-      FactoryBot.create(:post, user: user)
+      FactoryBot.create(:comment, user: user)
     end
   }
+  # let(:post_by_user) {
+  #   lambda do |user|
+  #     FactoryBot.create(:post, user: user)
+  #   end
+  # }
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
   let(:admin) { FactoryBot.create(:admin) }
@@ -15,7 +21,7 @@ RSpec.describe PostsController, type: :controller do
   describe 'GET #index' do
     describe 'request' do
       before do
-        FactoryBot.create_list(:post, 5)
+        FactoryBot.create_list(:comment, 5)
         get :index
       end
 
@@ -29,14 +35,14 @@ RSpec.describe PostsController, type: :controller do
 
       it 'returns all information' do
         expect(JSON.parse(response.body)['data'].first.keys.map(&:to_sym)).to(
-          match_array(Post.new.as_json(representation: :basic).keys)
+          match_array(Comment.new.as_json(representation: :basic).keys)
         )
       end
     end
 
     describe 'pagination' do
       before do
-        FactoryBot.create_list(:post, 5)
+        FactoryBot.create_list(:comment, 5)
         get :index, params: {page: {number: 1, size: 2}}
       end
 
@@ -45,12 +51,12 @@ RSpec.describe PostsController, type: :controller do
       end
     end
 
-    describe 'filters title' do
-      let(:item) { Post.all.to_a.sample }
+    describe 'filters content' do
+      let(:item) { Comment.all.to_a.sample }
 
       before do
-        FactoryBot.create_list(:post, 5)
-        get :index, params: {filter: {title: item.title}}
+        FactoryBot.create_list(:comment, 5)
+        get :index, params: {filter: {content: item.content}}
       end
 
       it 'returns only one resource' do
@@ -62,15 +68,15 @@ RSpec.describe PostsController, type: :controller do
       end
     end
 
-    describe 'order title' do
+    describe 'order created_at' do
       before do
-        FactoryBot.create_list(:post, 5)
-        get :index, params: {sort: 'title'}
+        FactoryBot.create_list(:comment, 5)
+        get :index, params: {sort: 'created_at'}
       end
 
       it 'returns ordered resources' do
-        expect(JSON.parse(response.body)['data'][0]['id']).to eq Post.all.order('title ASC')
-                                                                     .first.id
+        expect(JSON.parse(response.body)['data'][0]['id']).to eq Comment.all.order('created_at ASC')
+                                                                        .first.id
       end
     end
   end
@@ -78,7 +84,7 @@ RSpec.describe PostsController, type: :controller do
   describe 'GET #show' do
     context 'when user is not logged' do
       before do
-        get :show, params: {id: post1.id}
+        get :show, params: {id: comment.id}
       end
 
       it 'returns the unauthorized error' do
@@ -86,14 +92,14 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'returns the correct values' do
-        expect(JSON.parse(response.body)['data']['id']).to eq(post1.id)
+        expect(JSON.parse(response.body)['data']['id']).to eq(comment.id)
       end
     end
 
     context 'when user is logged' do
       before do
         sign_in user
-        get :show, params: {id: post1.id}
+        get :show, params: {id: comment.id}
       end
 
       it 'returns the correct status' do
@@ -101,7 +107,7 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'returns the correct values' do
-        expect(JSON.parse(response.body)['data']['id']).to eq(post1.id)
+        expect(JSON.parse(response.body)['data']['id']).to eq(comment.id)
       end
     end
   end
@@ -110,12 +116,12 @@ RSpec.describe PostsController, type: :controller do
     context 'when user is not logged' do
       it 'doesn\'t create a resource' do
         expect {
-          post :create, params: {data: {title: 'Title', content: 'Content'}}
+          post :create, params: {data: {post_id: post1.id, content: 'Content'}}
         }.to change(Comment, :count).by(0)
       end
 
       it 'returns the correct error message' do
-        post :create, params: {data: {title: 'Title', content: 'Content'}}
+        post :create, params: {data: {post_id: post1.id, content: 'Content'}}
         expect(response).to have_http_status(401)
       end
     end
@@ -125,15 +131,15 @@ RSpec.describe PostsController, type: :controller do
 
       it 'creates a resource' do
         expect {
-          post :create, params: {data: {title: 'Title', content: 'Content'}}
-        }.to change(Post, :count).by(1)
+          post :create, params: {data: {post_id: post1.id, content: 'Content'}}
+        }.to change(Comment, :count).by(1)
       end
 
       it 'returns the correct values' do
-        post :create, params: {data: {title: 'Title', content: 'Content'}}
-        model = Post.first
+        post :create, params: {data: {post_id: post1.id, content: 'Content'}}
+        model = Comment.first
 
-        {title: 'Title', content: 'Content'}.each do |field, value|
+        {post_id: post1.id, content: 'Content'}.each do |field, value|
           expect(model.send(field)).to eq value
         end
       end
@@ -154,7 +160,7 @@ RSpec.describe PostsController, type: :controller do
     context 'when user is logged' do
       before do
         sign_in user
-        put :update, params: {id: post_by_user[user].id, data: {title: 'New Title'}}
+        put :update, params: {id: comment_by_user[user].id, data: {content: 'New Content'}}
       end
 
       it 'returns the correct status' do
@@ -162,14 +168,14 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'returns the correct values' do
-        expect(JSON.parse(response.body)['data']['title']).to eq('New Title')
+        expect(JSON.parse(response.body)['data']['content']).to eq('New Content')
       end
     end
 
     context 'when user is logged as another user' do
       before do
         sign_in user1
-        put :update, params: {id: post_by_user[user2].id, data: {title: 'New Title'}}
+        put :update, params: {id: comment_by_user[user2].id, data: {content: 'New Content'}}
       end
 
       it 'returns the unauthorized error' do
@@ -180,7 +186,7 @@ RSpec.describe PostsController, type: :controller do
     context 'when admin is logged' do
       before do
         sign_in admin
-        put :update, params: {id: post_by_user[user].id, data: {title: 'New Title'}}
+        put :update, params: {id: comment_by_user[user].id, data: {content: 'New Content'}}
       end
 
       it 'returns the correct status' do
@@ -188,7 +194,7 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'returns the correct values' do
-        expect(JSON.parse(response.body)['data']['title']).to eq('New Title')
+        expect(JSON.parse(response.body)['data']['content']).to eq('New Content')
       end
     end
   end
@@ -210,24 +216,24 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'returns the correct status' do
-        delete :destroy, params: {id: post_by_user[user].id}
+        delete :destroy, params: {id: comment_by_user[user].id}
 
         expect(response).to have_http_status(204)
       end
 
       it 'removes the resource' do
-        id = post_by_user[user].id
+        id = comment_by_user[user].id
 
         expect {
           delete :destroy, params: {id: id}
-        }.to change(Post, :count).by(-1)
+        }.to change(Comment, :count).by(-1)
       end
     end
 
     context 'when user is logged as another user' do
       before do
         sign_in user1
-        delete :destroy, params: {id: post_by_user[user2].id}
+        delete :destroy, params: {id: comment_by_user[user2].id}
       end
 
       it 'returns the unauthorized error' do
@@ -241,17 +247,17 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'returns the correct status' do
-        delete :destroy, params: {id: post_by_user[user].id}
+        delete :destroy, params: {id: comment_by_user[user].id}
 
         expect(response).to have_http_status(204)
       end
 
       it 'removes the resource' do
-        id = post_by_user[user].id
+        id = comment_by_user[user].id
 
         expect {
           delete :destroy, params: {id: id}
-        }.to change(Post, :count).by(-1)
+        }.to change(Comment, :count).by(-1)
       end
     end
   end
