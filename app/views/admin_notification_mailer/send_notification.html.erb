@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Por favor, revise los siguientes comentarios</h1>
+    <p>
+      <ul>
+        <% @comments.each do |comment|%>
+          <li> ID: <%= comment.id.to_s %>, Contenido: <%= comment.content %> </li>
+        <% end %>
+      </ul>
+    </p>
+  </body>
+</html>
