@@ -8,8 +8,8 @@ export default Vue.extend({
   },
   computed: {
   },
-  methods: {
-  },
   created() {
+  },
+  methods: {
   }
 });

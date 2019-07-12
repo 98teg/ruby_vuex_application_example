@@ -2,6 +2,7 @@ import VueRouter from 'vue-router';
 
 // Pages
 import Home from './pages/home/index.js';
+import Page from './pages/example/page.js';
 
 // Le indicamos a Vue que use VueRouter
 Vue.use(VueRouter);
@@ -18,6 +19,14 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    meta: {
+      layout: 'default'
+    }
+  },
+  {
+    path: '/page',
+    name: 'page',
+    component: Page,
     meta: {
       layout: 'default'
     }

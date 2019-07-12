@@ -24,6 +24,6 @@ new Vue({
   store,
   i18n,
   components: {
-    DefaultLayout,
+    DefaultLayout
   }
 }).$mount('#app');
