@@ -143,6 +143,11 @@ RSpec.describe CommentsController, type: :controller do
           expect(model.send(field)).to eq value
         end
       end
+
+      it 'creates a job' do
+        expect { post :create, params: {data: {post_id: post1.id, content: 'Content'}} }
+          .to change(ActiveJob::Base.queue_adapter.enqueued_jobs, :size).by(1)
+      end
     end
   end
 
