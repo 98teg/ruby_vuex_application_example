@@ -1,0 +1,45 @@
+{
+  "name": "tutorial",
+  "version": "0.1.0",
+  "description": "tutorial proyect",
+  "main": "dist/tutorial.js",
+  "scripts": {
+    "dist": "check-dependencies && webpack --env production --mode production",
+    "start": "check-dependencies && webpack-dev-server --env development --mode development --inline --hot --host 0.0.0.0",
+    "test": "check-dependencies && webpack --env test --mode development",
+    "g": "check-dependencies && node node_modules/ns-generator/generator.js"
+  },
+  "author": "NSS",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.5.13",
+    "vue-i18n": "^7.4.2",
+    "vue-resource": "^1.4.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.0",
+    "check-dependencies": "^1.1.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "core-js": "^3.0.1",
+    "css-loader": "^0.28.11",
+    "duplicate-package-checker-webpack-plugin": "^3.0.0",
+    "file-loader": "^1.1.11",
+    "fs": "^0.0.1-security",
+    "html-webpack-plugin": "^3.2.0",
+    "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^0.4.2",
+    "node-sass": "^4.9.0",
+    "pug": "^2.0.3",
+    "pug-loader": "^2.4.0",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.14.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
+  }
+}

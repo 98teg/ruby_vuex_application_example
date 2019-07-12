@@ -1,0 +1,10 @@
+div
+  h4 Ejemplo de componente
+
+  table
+    tr
+      th Nombre
+      th Email
+    tr(v-for="user in users")
+      td {{user.name}}
+      td {{user.email}}
