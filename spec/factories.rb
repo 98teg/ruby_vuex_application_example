@@ -7,8 +7,6 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     password { 'foobar' }
 
-    Timecop.freeze(Faker::Date.between(15.days.ago, 1.day.ago))
-
     factory :admin do
       after(:create) { |user| user.add_role(:admin) }
     end

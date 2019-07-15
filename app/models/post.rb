@@ -17,6 +17,7 @@ class Post < ApplicationRecord
       image: image,
       creation: created_at,
       user_id: user_id,
+      author: User.find(user_id).name,
       id: id
     }
   end

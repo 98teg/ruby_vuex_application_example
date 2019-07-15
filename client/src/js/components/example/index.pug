@@ -1,10 +1,14 @@
 div
-  h4 Ejemplo de componente
+  h4 Lista de posts
 
   table
     tr
-      th Nombre
-      th Email
-    tr(v-for="user in users")
-      td {{user.name}}
-      td {{user.email}}
+      th(v-on:click="orderByTitle") Título
+      th(v-on:click="orderByDate") Fecha de creación
+      th(v-on:click="orderByAuthor") Autor
+      th Contenido
+    tr(v-for="post in posts")
+      td {{post.title}}
+      td {{post.creation}}
+      td {{post.author}}
+      td {{post.content}}
