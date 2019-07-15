@@ -28,7 +28,7 @@ const routes = [
     name: 'page',
     component: Page,
     meta: {
-      layout: 'default'
+      layout: 'example'
     }
   },
   {
