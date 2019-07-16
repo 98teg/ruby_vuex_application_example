@@ -12,7 +12,7 @@ export default Vue.extend({
     };
   },
   created() {
-    if (window.localStorage.getItem('token') != null) {
+    if (localStorage.getItem('token') != null) {
       this.has_to_login = false;
       this.has_to_logout = true;
     }
@@ -20,12 +20,14 @@ export default Vue.extend({
   methods: {
     async login() {
       try {
-        const {jwt} = await API.sessions
+        const session = await API.sessions
           .create({}, {params: {session: {email: this.user, password: this.password}}});
 
         this.has_to_login = false;
         this.has_to_logout = true;
-        window.localStorage.setItem('token', jwt);
+        console.log(session)
+        localStorage.setItem('token', session.jwt);
+        localStorage.setItem('email', session.email);
       } catch (error) {
         this.error = 'Error';
       }
@@ -33,7 +35,8 @@ export default Vue.extend({
     logout() {
       this.has_to_login = true;
       this.has_to_logout = false;
-      window.localStorage.removeItem('token');
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
     }
   }
 });

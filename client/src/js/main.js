@@ -3,12 +3,12 @@ import VueResource from 'vue-resource';
 import DefaultLayout from 'js/layouts/default';
 import ExampleLayout from 'js/layouts/example';
 
-Vue.component('default-layout', DefaultLayout);
-Vue.component('example-layout', ExampleLayout);
-
 import router from 'js/router.js';
 import store from 'js/vuex/store.js';
 import i18n from 'js/i18n.js';
+
+Vue.component('default-layout', DefaultLayout);
+Vue.component('example-layout', ExampleLayout);
 
 require('scss/main.scss');
 

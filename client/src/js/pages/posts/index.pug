@@ -1,0 +1,13 @@
+div
+  h4 Listado de tus posts
+  table
+    tr
+      th(v-on:click="orderByTitle") Título
+      th(v-on:click="orderByDate") Fecha de creación
+      th
+      th
+    tr(v-for="post in posts")
+      td {{post.title}}
+      td {{post.creation}}
+      td
+      td

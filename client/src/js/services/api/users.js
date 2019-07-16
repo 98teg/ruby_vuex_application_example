@@ -1,9 +1,9 @@
 export default {
-  baseUrl: 'http://localhost:3000/posts',
+  baseUrl: 'http://localhost:3000/users',
 
   mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
-    const DEFAULT_OPTIONS = {resource: 'posts'};
+    const DEFAULT_OPTIONS = {resource: 'users'};
     return Object.assign({}, DEFAULT_OPTIONS, options);
   },
 
@@ -19,17 +19,9 @@ export default {
   },
 
   show(id, params = {}, options = {}) {
-    return Vue.http.get(`${this.baseUrl}/${id}`, options).then(
-      response => { return response.body.data; }
-    );
-  },
-
-  create(data, options = {}) {
-    const sendData = data instanceof FormData ? data : {data};
-
-    return Vue.http.post(this.baseUrl, sendData, this.mergeOptions(options)).then(
-      response => { return response.body.data; }
-    );
+    return Vue.http
+      .get(`${this.baseUrl}/${id}`, options, {Authorization: window.localStorage.getItem('token')})
+      .then(response => { return response.body.data; });
   },
 
   update(id, data, options = {}) {
