@@ -1,0 +1,11 @@
+div
+  div(v-if="has_to_login")
+    p Usuario:
+      input(v-model="user")
+    p Contraseña:
+      input(v-model="password", type="password")
+
+    button(type="button", v-on:click="login") Iniciar sesión
+
+  div(v-if="has_to_logout")
+    button(type="button", v-on:click="logout") Cerrar sesión
