@@ -7,15 +7,13 @@ export default Vue.extend({
   },
   data() {
     return {
-      title: '',
-      content: ''
+      post: '',
+      hasImage: false
     };
   },
   async created() {
-    const post = await API.posts.show(this.id);
-
-    this.title = post.title;
-    this.content = post.content;
+    this.post = await API.posts.show(this.id);
+    this.hasImage = this.post.image.url === '';
   },
   methods: {
   }

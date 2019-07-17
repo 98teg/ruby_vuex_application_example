@@ -1,3 +1,6 @@
 div
-  h4 {{title}}
-  p {{content}}
+  h4 {{post.title}}
+  p {{post.content}}
+  p {{post.creation}}
+  div(v-if="hasImage")
+    img(v-bind:src = "'require(' + post.image.url + ')'")

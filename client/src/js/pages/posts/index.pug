@@ -10,8 +10,9 @@ div
       td
         a(v-bind:href = "'#/post/' + post.id") {{post.title}}
       td {{post.creation}}
-      td editar
-      td eliminar
+      td
+        a(v-bind:href = "'#/editpost/' + post.id") editar
+      td(v-on:click="DeletePost(post.id)") eliminar
       
   a(href="#/newpost")
       button(type="button") Crear post

@@ -18,6 +18,7 @@ export default Vue.extend({
       try {
         await API.posts.create({},
           {params: {data: {title: this.$children[0].title, content: this.$children[0].content}}});
+        this.$router.push({name: 'my posts'});
       } catch (error) {
         this.error = 'Error';
       }

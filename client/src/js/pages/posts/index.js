@@ -9,23 +9,31 @@ export default Vue.extend({
     };
   },
   async created() {
-    const {user_id} = jwt_decode(localStorage.getItem('token'));
-    const {data} = await API.posts.index({}, {params: {filter: {user_id}}});
-
-    this.posts = data;
+    this.getPosts();
   },
   methods: {
-    async orderByTitle() {
+    async getPosts(options = {}) {
       const {user_id} = jwt_decode(localStorage.getItem('token'));
-      const {data} = await API.posts.index({}, {params: {sort: 'title', filter: {user_id}}});
+      const {data} = await API.posts.index({},
+        Object.assign({}, {params: {filter: {user_id}}}, options));
 
       this.posts = data;
     },
-    async orderByDate() {
-      const {user_id} = jwt_decode(localStorage.getItem('token'));
-      const {data} = await API.posts.index({}, {params: {sort: '-created_at', filter: {user_id}}});
 
-      this.posts = data;
+    async orderByTitle() {
+      this.getPosts({params: {sort: 'title'}});
+    },
+
+    async orderByDate() {
+      this.getPosts({params: {sort: '-created_at'}});
+    },
+    
+    async DeletePost(id) {
+      if (confirm('¿Realmente quiere eliminar este post?')) {
+        await API.posts.destroy(id);
+
+        this.getPosts();
+      }
     }
   }
 });

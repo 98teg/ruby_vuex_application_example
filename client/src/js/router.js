@@ -5,6 +5,7 @@ import Home from './pages/home/index.js';
 import Posts from './pages/posts/index.js';
 import Post from './pages/posts/show.js';
 import NewPost from './pages/posts/new.js';
+import EditPost from './pages/posts/edit.js';
 import Page from './pages/example/page.js';
 
 // Le indicamos a Vue que use VueRouter
@@ -55,6 +56,15 @@ const routes = [
     path: '/newpost',
     name: 'create post',
     component: NewPost,
+    meta: {
+      layout: 'example'
+    }
+  },
+  {
+    path: '/editpost/:id',
+    name: 'edit post',
+    component: EditPost,
+    props: true,
     meta: {
       layout: 'example'
     }
