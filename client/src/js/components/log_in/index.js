@@ -25,9 +25,8 @@ export default Vue.extend({
 
         this.has_to_login = false;
         this.has_to_logout = true;
-        console.log(session)
+
         localStorage.setItem('token', session.jwt);
-        localStorage.setItem('email', session.email);
       } catch (error) {
         this.error = 'Error';
       }
@@ -35,8 +34,8 @@ export default Vue.extend({
     logout() {
       this.has_to_login = true;
       this.has_to_logout = false;
+
       localStorage.removeItem('token');
-      localStorage.removeItem('email');
     }
   }
 });

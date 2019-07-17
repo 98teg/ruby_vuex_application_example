@@ -1,3 +1,4 @@
+import jwt_decode from 'jwt-decode';
 import template from './index.pug';
 
 export default Vue.extend({
@@ -8,20 +9,21 @@ export default Vue.extend({
     };
   },
   async created() {
-    const user = await API.users
-      .index({}, {params: {filter: {email: window.localStorage.getItem('email')}}});
-    const {data} = await API.posts.index({}, {params: {filter: {user_id: user.data[0].id}}});
+    const {user_id} = jwt_decode(localStorage.getItem('token'));
+    const {data} = await API.posts.index({}, {params: {filter: {user_id}}});
 
     this.posts = data;
   },
   methods: {
     async orderByTitle() {
-      const {data} = await API.posts.index({}, {params: {sort: 'title'}});
+      const {user_id} = jwt_decode(localStorage.getItem('token'));
+      const {data} = await API.posts.index({}, {params: {sort: 'title', filter: {user_id}}});
 
       this.posts = data;
     },
     async orderByDate() {
-      const {data} = await API.posts.index({}, {params: {sort: '-created_at'}});
+      const {user_id} = jwt_decode(localStorage.getItem('token'));
+      const {data} = await API.posts.index({}, {params: {sort: '-created_at', filter: {user_id}}});
 
       this.posts = data;
     }

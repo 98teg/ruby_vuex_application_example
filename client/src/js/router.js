@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 // Pages
 import Home from './pages/home/index.js';
 import Posts from './pages/posts/index.js';
+import Post from './pages/posts/show.js';
 import Page from './pages/example/page.js';
 
 // Le indicamos a Vue que use VueRouter
@@ -36,6 +37,15 @@ const routes = [
     path: '/posts',
     name: 'my posts',
     component: Posts,
+    meta: {
+      layout: 'example'
+    }
+  },
+  {
+    path: '/post/:id',
+    name: 'post',
+    component: Post,
+    props: true,
     meta: {
       layout: 'example'
     }
