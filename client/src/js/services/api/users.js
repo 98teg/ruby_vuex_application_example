@@ -20,7 +20,7 @@ export default {
 
   show(id, params = {}, options = {}) {
     return Vue.http
-      .get(`${this.baseUrl}/${id}`, options, {Authorization: window.localStorage.getItem('token')})
+      .get(`${this.baseUrl}/${id}`, options, {headers: {Authorization: localStorage.getItem('token')}})
       .then(response => { return response.body.data; });
   },
 
