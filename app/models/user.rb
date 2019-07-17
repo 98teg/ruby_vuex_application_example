@@ -20,6 +20,13 @@ class User < ApplicationRecord
                     uniqueness: true,
                     format: URI::MailTo::EMAIL_REGEXP
 
+  def to_token_payload(_request)
+    {
+      auth_token: regenerate_auth_token,
+      user_id: id
+    }
+  end
+
   representation :basic do
     {
       name: name,
