@@ -3,7 +3,10 @@ export default {
 
   mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
-    const DEFAULT_OPTIONS = {resource: 'posts', headers: {Authorization: localStorage.getItem('token')}};
+    const DEFAULT_OPTIONS = {
+      resource: 'posts',
+      headers: {Authorization: localStorage.getItem('token')}
+    };
     return Object.assign({}, DEFAULT_OPTIONS, options);
   },
 

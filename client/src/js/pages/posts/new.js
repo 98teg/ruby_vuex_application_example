@@ -16,11 +16,30 @@ export default Vue.extend({
   methods: {
     async createPost() {
       try {
-        await API.posts.create({},
-          {params: {data: {title: this.$children[0].title, content: this.$children[0].content}}});
+        const formData = new FormData();
+
+        formData.append('data[title]', this.$children[0].title);
+        formData.append('data[content]', this.$children[0].content);
+        formData.append('data[image]', this.$children[0].image);
+
+        await API.posts.create(formData);
         this.$router.push({name: 'my posts'});
       } catch (error) {
-        this.error = 'Error';
+        if (error.body.title != null) {
+          this.$children[0].wrongTitle = true;
+          this.$children[0].titleErrors = error.body.title;
+        } else {
+          this.$children[0].wrongTitle = false;
+          this.$children[0].titleErrors = null;
+        }
+
+        if (error.body.content != null) {
+          this.$children[0].wrongContent = true;
+          this.$children[0].contentErrors = error.body.content;
+        } else {
+          this.$children[0].wrongContent = false;
+          this.$children[0].contentErrors = null;
+        }
       }
     }
   }

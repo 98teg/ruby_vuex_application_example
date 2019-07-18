@@ -5,9 +5,17 @@ export default Vue.extend({
   data() {
     return {
       title: '',
-      content: ''
+      content: '',
+      image: null,
+      wrongTitle: false,
+      wrongContent: false,
+      titleErrors: [],
+      contentErrors: []
     };
   },
   methods: {
+    processFile(event) {
+      this.image = event.target.files[0];
+    }
   }
 });

@@ -15,17 +15,17 @@ export default Vue.extend({
     async getPosts(options = {}) {
       const {user_id} = jwt_decode(localStorage.getItem('token'));
       const {data} = await API.posts.index({},
-        Object.assign({}, {params: {filter: {user_id}}}, options));
+        {params: Object.assign({}, {filter: {user_id}}, options)});
 
       this.posts = data;
     },
 
     async orderByTitle() {
-      this.getPosts({params: {sort: 'title'}});
+      this.getPosts({sort: 'title'});
     },
 
     async orderByDate() {
-      this.getPosts({params: {sort: '-created_at'}});
+      this.getPosts({sort: '-created_at'});
     },
     
     async DeletePost(id) {

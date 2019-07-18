@@ -3,4 +3,4 @@ div
   p {{post.content}}
   p {{post.creation}}
   div(v-if="hasImage")
-    img(v-bind:src = "'require(' + post.image.url + ')'")
+    img(v-bind:src = "'http://localhost:3000' + post.image.url")

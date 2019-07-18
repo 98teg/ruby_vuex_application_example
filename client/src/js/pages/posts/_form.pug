@@ -1,5 +1,13 @@
 div
-  p Título:
-    input(v-model="title")
-  p Contenido:
-    textarea(v-model="content")
+  div(v-bind:class="{ error: wrongTitle }")
+    p Título:
+      input(v-model="title")
+  div(v-bind:class="{ error: wrongContent }")
+    p Contenido:
+      textarea(v-model="content")
+    p Imagen:
+      input(type="file", @change="processFile($event)")
+  div(v-if="wrongTitle")
+    p(v-for="error in titleErrors") Título: {{error}}
+  div(v-if="wrongContent")
+    p(v-for="error in contentErrors") Contenido: {{error}}

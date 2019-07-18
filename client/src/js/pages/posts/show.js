@@ -13,7 +13,8 @@ export default Vue.extend({
   },
   async created() {
     this.post = await API.posts.show(this.id);
-    this.hasImage = this.post.image.url === '';
+    if (this.post.image.url != null) this.hasImage = true;
+    console.log(this.post.image.url);
   },
   methods: {
   }
