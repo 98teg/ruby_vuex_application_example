@@ -1,0 +1,18 @@
+{
+  "es": {
+    "posts_list": {
+      "titleSearch": "Buscar por título",
+      "contentSearch": "Buscar por contenido",
+      "authorSearch": "Buscar por autor",
+      "since": "Desde",
+      "until": "Hasta",
+      "apply": "Aplicar filtros",
+      "posts_list": "Lista de posts",
+      "title": "Título",
+      "creation_date": "Fecha de creación",
+      "author": "Autor",
+      "author_id": "ID del autor",
+      "content": "Contenido"
+    }
+  }
+}

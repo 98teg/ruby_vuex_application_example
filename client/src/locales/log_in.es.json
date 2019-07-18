@@ -1,0 +1,10 @@
+{
+  "es": {
+    "log_in": {
+      "user": "Usuario",
+      "password": "Contraseña",
+      "log_in": "Iniciar sesión",
+      "log_out": "Cerrar sesión"
+    }
+  }
+}

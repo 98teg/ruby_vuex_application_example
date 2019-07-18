@@ -2,13 +2,13 @@ div
   
   login-component
 
-  h1 Home
+  h1 {{$t('home.title')}}
 
   img(src=require('assets/images/logo.png'))
 
   postslist-component
 
   a(href="#/posts")
-    button(type="button") yooo
+    button(type="button") {{$t('home.my_posts')}}
   a(href="#/page")
-    button(type="button") hey
+    button(type="button") {{$t('home.example_page')}}

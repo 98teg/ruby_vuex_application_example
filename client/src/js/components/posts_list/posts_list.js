@@ -1,4 +1,4 @@
-import template from './index.pug';
+import template from './posts_list.pug';
 
 export default Vue.extend({
   template: template(),

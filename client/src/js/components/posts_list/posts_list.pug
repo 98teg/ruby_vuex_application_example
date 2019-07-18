@@ -1,0 +1,28 @@
+div
+  p {{$t('posts_list.titleSearch')}}:
+    input(v-model="filterTitle")
+  p {{$t('posts_list.contentSearch')}}:
+    input(v-model="filterContent")
+  p {{$t('posts_list.authorSearch')}}:
+    input(v-model="filterUserID")
+  p {{$t('posts_list.since')}}:
+    input(type="date", v-model="filterSince")
+  p {{$t('posts_list.until')}}:
+    input(type="date", v-model="filterUntil")
+
+  button(type="button", v-on:click="getPosts") {{$t('posts_list.apply')}}
+
+  h4 {{$t('posts_list.posts_list')}}
+  table
+    tr
+      th(v-on:click="orderByTitle") {{$t('posts_list.title')}}
+      th(v-on:click="orderByDate") {{$t('posts_list.creation_date')}}
+      th(v-on:click="orderByAuthor") {{$t('posts_list.author')}}
+      th {{$t('posts_list.author_id')}}
+      th {{$t('posts_list.content')}}
+    tr(v-for="post in posts")
+      td {{post.title}}
+      td {{post.creation}}
+      td {{post.author}}
+      td {{post.user_id}}
+      td {{post.content}}

@@ -3,14 +3,15 @@ import VueI18n from 'vue-i18n';
 const context = require.context('locales', true, /\.json$/);
 
 const locales = {};
+const _ = require('lodash');
 
 context.keys().forEach(filename => {
-  Object.assign(locales, context(filename));
+  _.merge(locales, context(filename));
 });
 
 Vue.use(VueI18n);
 
 export default new VueI18n({
-  locale: 'es',
+  locale: 'en',
   messages: locales
 });

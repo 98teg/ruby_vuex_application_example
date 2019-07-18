@@ -1,7 +1,7 @@
-import PostListComponent from 'js/components/posts_list/index.js';
-import LogInComponent from 'js/components/log_in/index.js';
+import PostListComponent from 'js/components/posts_list/posts_list.js';
+import LogInComponent from 'js/components/log_in/log_in.js';
 
-import template from './index.pug';
+import template from './home.pug';
 
 Vue.component('postslist-component', PostListComponent);
 Vue.component('login-component', LogInComponent);

@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 
 // Pages
-import Home from './pages/home/index.js';
+import Home from './pages/home/home.js';
 import Posts from './pages/posts/index.js';
 import Post from './pages/posts/show.js';
 import NewPost from './pages/posts/new.js';
