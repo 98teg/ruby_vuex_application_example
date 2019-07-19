@@ -1,4 +1,4 @@
-import template from './page.pug';
+import template from './example.pug';
 
 export default Vue.extend({
   template: template(),

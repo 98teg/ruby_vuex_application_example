@@ -1,0 +1,12 @@
+{
+  "en": {
+    "post_index": {
+      "list_posts": "List of your posts",
+      "title": "Title",
+      "creation_date": "Creation date",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create_post": "Create post"
+    }
+  }
+}

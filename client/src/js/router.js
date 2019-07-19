@@ -6,7 +6,7 @@ import Posts from './pages/posts/index.js';
 import Post from './pages/posts/show.js';
 import NewPost from './pages/posts/new.js';
 import EditPost from './pages/posts/edit.js';
-import Page from './pages/example/page.js';
+import Example from './pages/example/example.js';
 
 // Le indicamos a Vue que use VueRouter
 Vue.use(VueRouter);
@@ -28,9 +28,9 @@ const routes = [
     }
   },
   {
-    path: '/page',
-    name: 'page',
-    component: Page,
+    path: '/example',
+    name: 'example',
+    component: Example,
     meta: {
       layout: 'example'
     }

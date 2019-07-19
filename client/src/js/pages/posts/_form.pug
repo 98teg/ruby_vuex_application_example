@@ -1,13 +1,13 @@
 div
   div(v-bind:class="{ error: wrongTitle }")
-    p Título:
+    p {{$t('post_form.title')}}:
       input(v-model="title")
   div(v-bind:class="{ error: wrongContent }")
-    p Contenido:
+    p {{$t('post_form.content')}}:
       textarea(v-model="content")
-    p Imagen:
+    p {{$t('post_form.image')}}:
       input(type="file", @change="processFile($event)")
   div(v-if="wrongTitle")
-    p(v-for="error in titleErrors") Título: {{error}}
+    p(v-for="error in titleErrors") {{$t('post_form.title')}}: {{error}}
   div(v-if="wrongContent")
-    p(v-for="error in contentErrors") Contenido: {{error}}
+    p(v-for="error in contentErrors") {{$t('post_form.content')}}: {{error}}

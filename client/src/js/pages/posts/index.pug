@@ -1,9 +1,9 @@
 div
-  h4 Listado de tus posts
+  h4 {{$t('post_index.list_posts')}}
   table
     tr
-      th(v-on:click="orderByTitle") Título
-      th(v-on:click="orderByDate") Fecha de creación
+      th(v-on:click="orderByTitle") {{$t('post_index.title')}}
+      th(v-on:click="orderByDate") {{$t('post_index.creation_date')}}
       th
       th
     tr(v-for="post in posts")
@@ -11,8 +11,8 @@ div
         a(v-bind:href = "'#/post/' + post.id") {{post.title}}
       td {{post.creation}}
       td
-        a(v-bind:href = "'#/editpost/' + post.id") editar
-      td(v-on:click="DeletePost(post.id)") eliminar
+        a(v-bind:href = "'#/editpost/' + post.id") {{$t('post_index.edit')}}
+      td(v-on:click="DeletePost(post.id)") {{$t('post_index.delete')}}
       
   a(href="#/newpost")
-      button(type="button") Crear post
+      button(type="button") {{$t('post_index.create_post')}}
