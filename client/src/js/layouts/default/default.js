@@ -1,4 +1,5 @@
-import template from './index.pug';
+import {mapGetters} from 'vuex';
+import template from './default.pug';
 
 export default Vue.extend({
   template: template({}),
@@ -11,5 +12,8 @@ export default Vue.extend({
   created() {
   },
   methods: {
+    ...mapGetters([
+      'user_name'
+    ])
   }
 });

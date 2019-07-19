@@ -1,6 +1,6 @@
 import VueResource from 'vue-resource';
 
-import DefaultLayout from 'js/layouts/default';
+import DefaultLayout from 'js/layouts/default/default.js';
 import ExampleLayout from 'js/layouts/example';
 
 import router from 'js/router.js';

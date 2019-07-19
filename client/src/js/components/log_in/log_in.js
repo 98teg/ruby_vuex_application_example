@@ -1,3 +1,4 @@
+import {mapActions} from 'vuex';
 import template from './log_in.pug';
 
 export default Vue.extend({
@@ -15,9 +16,13 @@ export default Vue.extend({
     if (localStorage.getItem('token') != null) {
       this.has_to_login = false;
       this.has_to_logout = true;
+      this.set_current_user();
     }
   },
   methods: {
+    ...mapActions([
+      'set_current_user'
+    ]),
     async login() {
       try {
         const session = await API.sessions
@@ -27,6 +32,7 @@ export default Vue.extend({
         this.has_to_logout = true;
 
         localStorage.setItem('token', session.jwt);
+        this.set_current_user();
       } catch (error) {
         this.error = 'Error';
       }

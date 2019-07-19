@@ -27,7 +27,7 @@ export default Vue.extend({
     async orderByDate() {
       this.getPosts({sort: '-created_at'});
     },
-    
+
     async DeletePost(id) {
       if (confirm('¿Realmente quiere eliminar este post?')) {
         await API.posts.destroy(id);

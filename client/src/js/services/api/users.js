@@ -3,7 +3,10 @@ export default {
 
   mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
-    const DEFAULT_OPTIONS = {resource: 'users'};
+    const DEFAULT_OPTIONS = {
+      resource: 'users',
+      headers: {Authorization: localStorage.getItem('token')}
+    };
     return Object.assign({}, DEFAULT_OPTIONS, options);
   },
 
@@ -20,7 +23,7 @@ export default {
 
   show(id, params = {}, options = {}) {
     return Vue.http
-      .get(`${this.baseUrl}/${id}`, options, {headers: {Authorization: localStorage.getItem('token')}})
+      .get(`${this.baseUrl}/${id}`, this.mergeOptions(options))
       .then(response => { return response.body.data; });
   },
 
