@@ -32,7 +32,8 @@ class User < ApplicationRecord
       name: name,
       email: email,
       id: id,
-      creation: created_at
+      creation: created_at,
+      role: roles_name
     }
   end
 
@@ -76,6 +77,11 @@ class User < ApplicationRecord
     end
 
     private
+
+    def roles_name
+      roles_name = []
+      roles.each { |role| roles_name += role.name }
+    end
 
     def construct_criteria(filter)
       @first_criteria = true
