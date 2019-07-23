@@ -21,7 +21,8 @@ div
       th {{$t('posts_list.author_id')}}
       th {{$t('posts_list.content')}}
     tr(v-for="post in posts")
-      td {{post.title}}
+      td
+        a(v-bind:href = "'#/post/' + post.id") {{post.title}}
       td {{post.creation}}
       td {{post.author}}
       td {{post.user_id}}

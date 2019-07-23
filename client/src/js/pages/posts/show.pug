@@ -4,3 +4,8 @@ div
   p {{post.creation}}
   div(v-if="hasImage")
     img(v-bind:src = "'http://localhost:3000' + post.image.url")
+  div( v-if="isLoged()")
+    textarea(v-model="comment")
+    div(v-if="wrongComment")
+      p(v-for="error in commentsErrors") {{$t('post_form.content')}}: {{error}}
+    button(type="button" v-on:click="createComment") {{$t('post_show.comment')}}
