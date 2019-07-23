@@ -13,6 +13,16 @@ export default Vue.extend({
     return {
     };
   },
+  async created() {
+    if (localStorage.getItem('token') == null) {
+      this.$router.push({name: 'home'});
+    }
+  },
+  updated() {
+    if (localStorage.getItem('token') == null) {
+      this.$router.push({name: 'home'});
+    }
+  },
   methods: {
     async createPost() {
       try {

@@ -17,10 +17,19 @@ export default Vue.extend({
     };
   },
   async created() {
-    const post = await API.posts.show(this.id);
+    if (localStorage.getItem('token') == null) {
+      this.$router.push({name: 'home'});
+    } else {
+      const post = await API.posts.show(this.id);
 
-    this.$children[0].title = post.title;
-    this.$children[0].content = post.content;
+      this.$children[0].title = post.title;
+      this.$children[0].content = post.content;
+    }
+  },
+  updated() {
+    if (localStorage.getItem('token') == null) {
+      this.$router.push({name: 'home'});
+    }
   },
   methods: {
     async savePost() {

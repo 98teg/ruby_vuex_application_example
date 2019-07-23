@@ -9,7 +9,14 @@ export default Vue.extend({
     };
   },
   async created() {
-    this.getPosts();
+    if (localStorage.getItem('token') == null) {
+      this.$router.push({name: 'home'});
+    } else this.getPosts();
+  },
+  updated() {
+    if (localStorage.getItem('token') == null) {
+      this.$router.push({name: 'home'});
+    }
   },
   methods: {
     async getPosts(options = {}) {

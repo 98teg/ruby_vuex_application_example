@@ -2,6 +2,7 @@ import VueRouter from 'vue-router';
 
 // Pages
 import Home from './pages/home/home.js';
+import Login from './pages/log_in/log_in.js';
 import Posts from './pages/posts/index.js';
 import Post from './pages/posts/show.js';
 import NewPost from './pages/posts/new.js';
@@ -28,11 +29,19 @@ const routes = [
     }
   },
   {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      layout: 'example'
+    }
+  },
+  {
     path: '/example',
     name: 'example',
     component: Example,
     meta: {
-      layout: 'example'
+      layout: 'default'
     }
   },
   {
@@ -40,7 +49,7 @@ const routes = [
     name: 'my posts',
     component: Posts,
     meta: {
-      layout: 'example'
+      layout: 'default'
     }
   },
   {
@@ -49,7 +58,7 @@ const routes = [
     component: Post,
     props: true,
     meta: {
-      layout: 'example'
+      layout: 'default'
     }
   },
   {
@@ -57,7 +66,7 @@ const routes = [
     name: 'create post',
     component: NewPost,
     meta: {
-      layout: 'example'
+      layout: 'default'
     }
   },
   {
@@ -66,7 +75,7 @@ const routes = [
     component: EditPost,
     props: true,
     meta: {
-      layout: 'example'
+      layout: 'default'
     }
   },
   {
