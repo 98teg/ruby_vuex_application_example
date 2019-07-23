@@ -11,14 +11,22 @@ export default Vue.extend({
       hasImage: false,
       comment: '',
       wrongComment: false,
-      commentsErrors: null
+      commentsErrors: null,
+      comments: null
     };
   },
   async created() {
     this.post = await API.posts.show(this.id);
     if (this.post.image.url != null) this.hasImage = true;
+
+    this.getComments();
   },
   methods: {
+    async getComments() {
+      const {data} = await API.comments.index({},
+        {params: {sort: '-created_at', filter: {post_id: this.id}}});
+      this.comments = data;
+    },
     async createComment() {
       try {
         const formData = new FormData();
@@ -31,6 +39,8 @@ export default Vue.extend({
         this.comment = '';
         this.wrongComment = false;
         this.commentsErrors = null;
+
+        this.getComments();
       } catch (error) {
         if (error.body.content != null) {
           this.wrongComment = true;

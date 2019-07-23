@@ -9,3 +9,7 @@ div
     div(v-if="wrongComment")
       p(v-for="error in commentsErrors") {{$t('post_form.content')}}: {{error}}
     button(type="button" v-on:click="createComment") {{$t('post_show.comment')}}
+  tr(v-for="comment in comments")
+    td {{comment.author}}:
+    td {{comment.content}}
+    td {{comment.creation}}

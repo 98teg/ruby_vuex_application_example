@@ -14,6 +14,7 @@ class Comment < ApplicationRecord
       creation: created_at,
       post_id: post_id,
       user_id: user_id,
+      author: User.find(user_id).name,
       id: id
     }
   end
