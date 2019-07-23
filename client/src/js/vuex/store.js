@@ -29,6 +29,10 @@ export default new Vuex.Store({
     user_name: (state, getters) => {
       if (getters.current_user != null) return getters.current_user.name;
       return '';
+    },
+    user_roles: (state, getters) => {
+      if (getters.current_user != null) return getters.current_user.role;
+      return '';
     }
   }
 });

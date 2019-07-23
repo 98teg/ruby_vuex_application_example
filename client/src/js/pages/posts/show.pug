@@ -13,3 +13,4 @@ div
     td {{comment.author}}:
     td {{comment.content}}
     td {{comment.creation}}
+    td(v-if="canDelete(comment.user_id)" v-on:click="deleteComment(comment.id)") Delete

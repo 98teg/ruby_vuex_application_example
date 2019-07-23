@@ -1,5 +1,4 @@
-import {mapGetters} from 'vuex';
-import {mapActions} from 'vuex';
+import {mapGetters, mapActions} from 'vuex';
 import template from './default.pug';
 
 export default Vue.extend({

@@ -1,3 +1,4 @@
+import {mapGetters} from 'vuex';
 import template from './show.pug';
 
 export default Vue.extend({
@@ -22,6 +23,10 @@ export default Vue.extend({
     this.getComments();
   },
   methods: {
+    ...mapGetters([
+      'current_user',
+      'user_roles'
+    ]),
     async getComments() {
       const {data} = await API.comments.index({},
         {params: {sort: '-created_at', filter: {post_id: this.id}}});
@@ -53,6 +58,16 @@ export default Vue.extend({
     },
     isLoged() {
       return localStorage.getItem('token') != null;
+    },
+    canDelete(id) {
+      return this.user_roles().includes('admin') || this.current_user().id === id;
+    },
+    async deleteComment(id) {
+      if (confirm('¿Realmente quiere eliminar este comentario?')) {
+        await API.comments.destroy(id);
+
+        this.getComments();
+      }
     }
   }
 });
