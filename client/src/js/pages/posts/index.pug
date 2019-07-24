@@ -11,8 +11,10 @@ div
         a(v-bind:href = "'#/post/' + post.id") {{post.title}}
       td {{post.creation}}
       td
+      td
         a(v-bind:href = "'#/editpost/' + post.id") {{$t('post_index.edit')}}
-      td(v-on:click="DeletePost(post.id)") {{$t('post_index.delete')}}
+        button(id="show-modal" @click="showModal = true") {{$t('post_index.delete')}}
+        ModalComponent(v-if="showModal" @close="showModal = false" :title="$t('post_index.delete')" :message="$t('post_index.sure')" @ok="DeletePost(post.id)")
       
   a(href="#/newpost")
       button(type="button") {{$t('post_index.create_post')}}

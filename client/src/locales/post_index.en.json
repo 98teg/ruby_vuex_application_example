@@ -6,7 +6,8 @@
       "creation_date": "Creation date",
       "edit": "Edit",
       "delete": "Delete",
-      "create_post": "Create post"
+      "create_post": "Create post",
+      "sure": "Are you sure?"
     }
   }
 }

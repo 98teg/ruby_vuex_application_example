@@ -1,11 +1,16 @@
 import jwt_decode from 'jwt-decode';
+import ModalComponent from 'js/components/modal/modal.js';
 import template from './index.pug';
 
 export default Vue.extend({
   template: template(),
+  components: {
+    ModalComponent
+  },
   data() {
     return {
-      posts: []
+      posts: [],
+      showModal: false
     };
   },
   async created() {
@@ -36,11 +41,9 @@ export default Vue.extend({
     },
 
     async DeletePost(id) {
-      if (confirm('¿Realmente quiere eliminar este post?')) {
-        await API.posts.destroy(id);
+      await API.posts.destroy(id);
 
-        this.getPosts();
-      }
+      this.getPosts();
     }
   }
 });

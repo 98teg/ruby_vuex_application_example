@@ -6,7 +6,8 @@
       "creation_date": "Fecha de creación",
       "edit": "Editar",
       "delete": "Eliminar",
-      "create_post": "Crear post"
+      "create_post": "Crear post",
+      "sure": "¿Está seguro de que desea eliminar el post?"
     }
   }
 }
