@@ -2,8 +2,8 @@
   div(v-if="session")
     p {{user_name()}}
     a(href="#/")
-      button(v-on:click="logout") {{$t('log_in.log_out')}}
+      ns-button(type="primary" size="sm" @click="logout") {{$t('log_in.log_out')}}
   div(v-else="session")
     a(href="#/login")
-      button(type="button") {{$t('log_in.log_in')}}
+      ns-button(type="primary" size="sm") {{$t('log_in.log_in')}}
   router-view

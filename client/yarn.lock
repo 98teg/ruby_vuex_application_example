@@ -856,6 +856,11 @@ accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
+accounting@^0.4.1:
+  version "0.4.1"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/accounting/-/accounting-0.4.1.tgz#87dd4103eff7f4460f1e186f5c677ed6cf566883"
+  integrity sha1-h91BA+/39EYPHhhvXGd+1s9WaIM=
+
 acorn-globals@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-3.1.0.tgz#fd8270f71fbb4996b004fa880ee5d46573a731bf"
@@ -1104,6 +1109,11 @@ autoprefixer@^6.3.1:
     num2fraction "^1.2.2"
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
+
+autosize@^4.0.1:
+  version "4.0.2"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/autosize/-/autosize-4.0.2.tgz#073cfd07c8bf45da4b9fd153437f5bafbba1e4c9"
+  integrity sha512-jnSyH2d+qdfPGpWlcuhGiHmqBJ6g3X+8T+iRwFrHPLVcdoGJE/x6Qicm6aDHfTsbgZKxyV8UU/YB2p4cjKDRRA==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -4622,6 +4632,78 @@ npm-run-path@^2.0.0:
     gauge "~2.7.3"
     set-blocking "~2.0.0"
 
+ns-button@^1.0.2:
+  version "1.0.2"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-button/-/ns-button-1.0.2.tgz#7443fd8afe8d78c922dd2fe882e923b5449b313d"
+  integrity sha512-e3iGEm45JLdO15Kk6bX1gGL+nBF0ZS1Vu1nhknap6CkZuY1oiIOnjDzwt/Xs0aozKgwUd70mGBlhuMuBRufOxA==
+
+ns-dropdown@^1.5.0:
+  version "1.5.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-dropdown/-/ns-dropdown-1.5.0.tgz#57323ba52d4d80c6f80e44e9d693ff113a492adf"
+  integrity sha512-sakBC7NS4qeOK0K5Ib80rRQv17gH72cKOBbDNCv28ErQLdriWdT//4MuV3athC7oUhkqyyCZPxcdX2JcQoodbw==
+  dependencies:
+    ns-icon "^1.0.0"
+
+ns-field@^2.2.0:
+  version "2.2.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-field/-/ns-field-2.2.0.tgz#8eda04721eaed7a05563ac501ea1a76b1f9f522c"
+  integrity sha512-/a3vCIJAgql715SAFgRrfN6CkJxxu+GX9u/EYUaFEa2FIUI/fWxlWrx2yP4v9YBnd5qz7HQfkSDwGysk2aqG0A==
+  dependencies:
+    ns-icon "^1.0.0"
+    ns-tooltip "^3.0.0"
+
+ns-filters@^0.5.0:
+  version "0.5.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-filters/-/ns-filters-0.5.0.tgz#e08ac08bfe800334ec8c56a74078912135e45b09"
+  integrity sha512-0uy35ckgTdLqjxNH2Z33WfOQUKVhamGQ8+Dnfe9z1t0lcYyVyN+Wk+RfqbAYeNQiKo2+gB3nMf0/G/hSfxKtpA==
+  dependencies:
+    accounting "^0.4.1"
+
+ns-icon@^1.0, ns-icon@^1.0.0:
+  version "1.0.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-icon/-/ns-icon-1.0.0.tgz#6aa1a0627fa35df04ef431a4cb30a4187e926fb6"
+  integrity sha512-0XSvxDoSYvwMEJAXHKARIRQqNUjemyeclgprAO6k4Gp8hiCY8iFkSUD+FOMng6380ZOUeYJI/f4s3K/IYT8JYA==
+
+ns-input-file@^3.0.0-beta.4:
+  version "3.0.0-beta.4"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-input-file/-/ns-input-file-3.0.0-beta.4.tgz#c88eaa1866085a7bee36baccde03ea65df28e801"
+  integrity sha512-Ct7RVQxS1XRc1aYNdwW5lqpXZWHCgFxgkWGv0Ys43BtYZn9XkvWD3v4ykMSAkhhAFv7Zs/HNsqubEg71X04BSw==
+  dependencies:
+    ns-filters "^0.5.0"
+
+ns-input@^3.2.0:
+  version "3.2.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-input/-/ns-input-3.2.0.tgz#958e2160d3256e54b13bc7b9dacb2a6cdad886de"
+  integrity sha512-MQTH0W0lfhKwL5ptsRXuHiigg8JNsiYoSsFGUJAiUWUipalHvcOr5hTJm90oo4rx0rHOSiUkVQqO/VRlSHx+yA==
+  dependencies:
+    autosize "^4.0.1"
+
+ns-select@^4.8.6:
+  version "4.8.6"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-select/-/ns-select-4.8.6.tgz#f9c01ad27714e5c14df4db301ae0d7bec64fefe4"
+  integrity sha512-SQ8eeCMUCX4W5wxFeu+w9cczHFHFymSHCIRNoFlImdt5gze4YOl0WAq3boFfrNRNl3IHwZzjALhBGd9AlUnw4g==
+  dependencies:
+    ns-icon "^1.0.0"
+
+ns-style@^1.5.0:
+  version "1.5.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-style/-/ns-style-1.5.0.tgz#b9d2e2dcf40bd863692190d4617e1ba0d3c26ab3"
+  integrity sha512-WvWYXixqGC85GAsucX/QMvS7Jxlpl4eKCItG+4BaFVoe+milrKQzmPvtDSX6m9ZucmkBObMlMn3cvqUOsRA6GQ==
+
+ns-table@^4.16.0:
+  version "4.16.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-table/-/ns-table-4.16.0.tgz#c11e81ab1789aee145d207a4fe02e700b6be3981"
+  integrity sha512-zN54BjwN0dfv+byOsFCPD3uEXG9RD0DyMx+mozCiy/l4CNJj/tKwSMVnmunfQc5QtvnviMo7aA0eOh/NB7BYWg==
+  dependencies:
+    ns-icon "^1.0"
+    vuedraggable "^2.15"
+    vuejs-dialog "^1.3"
+
+ns-tooltip@^3.0.0:
+  version "3.0.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/ns-tooltip/-/ns-tooltip-3.0.0.tgz#c33b073af36b5838611b69065e27d17aaeefd180"
+  integrity sha512-JEyQ5BOeE/u3ykyW+BVHpWZTtUHAa+De1SJ9RfhoIQi2b5O6IUYlbJwQEO4AxrvlJpNy4guDkkDDhpntMk9nLA==
+
 nth-check@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nth-check/-/nth-check-1.0.2.tgz#b2bd295c37e3dd58a3bf0700376663ba4d9cf05c"
@@ -6215,6 +6297,11 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
+sortablejs@^1.9.0:
+  version "1.9.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/sortablejs/-/sortablejs-1.9.0.tgz#2d1e74ae6bac2cb4ad0622908f340848969eb88d"
+  integrity sha512-Ot6bYJ6PoqPmpsqQYXjn1+RKrY2NWQvQt/o4jfd/UYwVWndyO5EPO8YHbnm5HIykf8ENsm4JUrdAvolPT86yYA==
+
 source-list-map@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
@@ -6985,6 +7072,18 @@ vue@^2.5.13:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
+
+vuedraggable@^2.15, vuedraggable@^2.23.0:
+  version "2.23.0"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/vuedraggable/-/vuedraggable-2.23.0.tgz#1f4a5a601675a5dbf0d96ee61aebfffa43445262"
+  integrity sha512-RgdH16k43WNoxyRcv/OarB/DZh9SY5TYthk9TS4YiHXpelD1DytEG0phLAXiXx5EhsmdH8ltSWxklGa4g1WTCw==
+  dependencies:
+    sortablejs "^1.9.0"
+
+vuejs-dialog@^1.3, vuejs-dialog@^1.4.1:
+  version "1.4.1"
+  resolved "https://nexus.nosolosoftware.es/repository/npm_nss_group/vuejs-dialog/-/vuejs-dialog-1.4.1.tgz#a1d332740b1f92dc26daa88095c9f4ad9bcf25b9"
+  integrity sha512-gAAiQL+KHAqYbyGxpdT8OPG7hbnB2qWzH5dkQZrntlhewe7R8N0QxsbqHcFRKAk5pUJCrc7zjbEjshlWoCSDHg==
 
 vuex@^3.1.1:
   version "3.1.1"

@@ -13,9 +13,5 @@ export default Vue.extend({
       contentErrors: []
     };
   },
-  methods: {
-    processFile(event) {
-      this.image = event.target.files[0];
-    }
-  }
+  methods: {}
 });

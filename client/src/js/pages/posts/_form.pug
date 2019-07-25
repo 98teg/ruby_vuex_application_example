@@ -1,13 +1,25 @@
 div
-  div(v-bind:class="{ error: wrongTitle }")
-    p {{$t('post_form.title')}}:
-      input(v-model="title")
-  div(v-bind:class="{ error: wrongContent }")
-    p {{$t('post_form.content')}}:
-      textarea(v-model="content")
-    p {{$t('post_form.image')}}:
-      input(type="file", @change="processFile($event)")
-  div(v-if="wrongTitle")
-    p(v-for="error in titleErrors") {{$t('post_form.title')}}: {{error}}
-  div(v-if="wrongContent")
-    p(v-for="error in contentErrors") {{$t('post_form.content')}}: {{error}}
+  ns-field(
+    for="title"
+    :error="titleErrors[0]"
+    :label="$t('post_form.title')")
+    ns-input(id="title" v-model="title")
+  ns-field(
+    for="content"
+    :error="contentErrors[0]"
+    :label="$t('post_form.content')")
+    ns-input(id="content" v-model="content" type="textarea")
+
+  ns-field(
+    for="image"
+    :label="$t('post_form.image')")
+    ns-input-file(id="file"
+      :preview="true"
+      :preview-box="true"
+      preview-width="320px"
+      preview-height="150px"
+      placeholder="Selecciona o arrastra una imagen"
+      :enable-drop="true"
+      :enable-paste="true"
+      paste-placeholder="Pega con Ctrl-V"
+      v-model="image")

@@ -14,10 +14,20 @@
   "dependencies": {
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.14",
+    "ns-button": "^1.0.2",
+    "ns-dropdown": "^1.5.0",
+    "ns-field": "^2.2.0",
+    "ns-input": "^3.2.0",
+    "ns-input-file": "^3.0.0-beta.4",
+    "ns-select": "^4.8.6",
+    "ns-style": "^1.5.0",
+    "ns-table": "^4.16.0",
     "vue": "^2.5.13",
     "vue-i18n": "^7.4.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
+    "vuedraggable": "^2.23.0",
+    "vuejs-dialog": "^1.4.1",
     "vuex": "^3.1.1"
   },
   "devDependencies": {

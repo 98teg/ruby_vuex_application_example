@@ -24,6 +24,7 @@ export default Vue.extend({
 
       this.$children[0].title = post.title;
       this.$children[0].content = post.content;
+      this.$children[0].image = post.image;
     }
   },
   updated() {

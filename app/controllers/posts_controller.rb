@@ -5,10 +5,11 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     @posts = Post.get(params[:filter])
+    @count = @posts.count
     @posts = Post.order(@posts, params[:sort])
     @posts = Post.paginate(@posts, params[:page])
 
-    render_json @posts
+    render_json(@posts, @count)
   end
 
   # GET /posts/1
@@ -55,7 +56,7 @@ class PostsController < ApplicationController
     params.require(:data).permit(:title, :content, :image)
   end
 
-  def render_json(posts)
-    render json: {data: posts.as_json(representation: :basic)}
+  def render_json(posts, count=0)
+    render json: {data: posts.as_json(representation: :basic), meta: {total_count: count}}
   end
 end

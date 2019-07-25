@@ -10,13 +10,16 @@ export default Vue.extend({
       filterSince: '',
       filterUntil: '',
       lastSort: {},
+      pagination: {
+        currentPage: 1,
+        limit: 3,
+        totalElements: null
+      },
       posts: []
     };
   },
   async created() {
-    const {data} = await API.posts.index();
-
-    this.posts = data;
+    this.getPosts();
   },
   methods: {
     getFilters() {
@@ -39,33 +42,43 @@ export default Vue.extend({
       }
 
       const filtro = {
-        fitler: filter
+        filter
       };
 
       return filtro;
     },
     getParams(params) {
-      return Object.assign({}, this.getFilters(), params);
+      const temp = Object.assign({}, this.getFilters(), params);
+      return Object.assign({},
+        {page: {size: this.pagination.limit, number: this.pagination.currentPage}}, temp);
     },
     async getPosts() {
-      const {data} = await API.posts.index({}, {params: this.getParams(this.lastSort)});
+      const result = await API.posts.index({}, {params: this.getParams(this.lastSort)});
 
-      this.posts = data;
+      this.posts = result.data;
+      this.pagination.totalElements = result.meta.total_count;
     },
-    async orderByTitle() {
-      this.lastSort = {sort: 'title'};
+    changePage(page) {
+      this.pagination.currentPage = page;
+      this.getPosts();
+    },
+    changeLimit(limit) {
+      this.pagination.limit = limit;
+      this.pagination.currentPage = 1;
+      this.getPosts();
+    },
+    async changeOrder(field, dir) {
+      if (dir === 'desc') {
+        this.lastSort = {sort: '-'.concat(field)};
+      } else {
+        this.lastSort = {sort: field};
+      }
 
       this.getPosts();
     },
-    async orderByDate() {
-      this.lastSort = {sort: '-created_at'};
-
-      this.getPosts();
-    },
-    async orderByAuthor() {
-      this.lastSort = {sort: 'user_name'};
-
-      this.getPosts();
+    postClick(id) {
+      id = id.toString();
+      this.$router.push({name: 'post', params: {id}});
     }
   }
 });

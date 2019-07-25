@@ -10,7 +10,13 @@ export default Vue.extend({
   data() {
     return {
       posts: [],
-      showModal: false
+      showModal: false,
+      pagination: {
+        currentPage: 1,
+        limit: 3,
+        totalElements: null
+      },
+      lastSort: {}
     };
   },
   async created() {
@@ -24,26 +30,56 @@ export default Vue.extend({
     }
   },
   methods: {
-    async getPosts(options = {}) {
+    async getPosts() {
       const {user_id} = jwt_decode(localStorage.getItem('token'));
-      const {data} = await API.posts.index({},
-        {params: Object.assign({}, {filter: {user_id}}, options)});
 
-      this.posts = data;
+      const result = await API.posts.index({},
+        {
+          params: Object.assign({}, {
+            filter: {user_id},
+            page: {size: this.pagination.limit, number: this.pagination.currentPage}
+          },
+          this.lastSort)
+        });
+
+      this.pagination.totalElements = result.meta.total_count;
+      this.posts = result.data;
     },
 
-    async orderByTitle() {
-      this.getPosts({sort: 'title'});
+    changePage(page) {
+      this.pagination.currentPage = page;
+      this.getPosts();
     },
 
-    async orderByDate() {
-      this.getPosts({sort: '-created_at'});
+    changeLimit(limit) {
+      this.pagination.limit = limit;
+      this.pagination.currentPage = 1;
+      this.getPosts();
     },
 
-    async DeletePost(id) {
+    async changeOrder(field, dir) {
+      if (dir === 'desc') {
+        this.lastSort = {sort: '-'.concat(field)};
+      } else {
+        this.lastSort = {sort: field};
+      }
+
+      this.getPosts();
+    },
+
+    async editPost(id) {
+      this.$router.push({name: 'edit post', params: {id}});
+    },
+
+    async deletePost(id) {
       await API.posts.destroy(id);
 
       this.getPosts();
+    },
+
+    postClick(id) {
+      id = id.toString();
+      this.$router.push({name: 'post', params: {id}});
     }
   }
 });

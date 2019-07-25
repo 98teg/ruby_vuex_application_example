@@ -1,4 +1,23 @@
 @charset 'UTF-8';
+
+@import 'node_modules/ns-style/scss/1-settings/main';
+@import 'node_modules/ns-style/scss/2-tools/main';
+@import 'node_modules/ns-style/scss/3-generic/main';
+@import 'node_modules/ns-style/scss/4-elements/main';
+@import 'node_modules/ns-style/scss/5-layout/main';
+@import 'node_modules/ns-style/scss/6-components/main';
+@import 'node_modules/ns-style/scss/7-helpers/main';
+
+//@import 'node_modules/vuejs-dialog/dist/vuejs-dialog.min.css';
+@import 'node_modules/ns-dropdown/src/index.scss';
+@import 'node_modules/ns-select/src/index.scss';
+@import 'node_modules/ns-table/src/index.scss';
+@import 'node_modules/ns-tooltip/src/index.scss';
+@import 'node_modules/ns-field/src/index.scss';
+@import 'node_modules/ns-input/src/index.scss';
+@import 'node_modules/ns-button/src/index.scss';
+@import 'node_modules/ns-input-file/src/index.scss';
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
