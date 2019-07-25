@@ -28,7 +28,7 @@ export default Vue.extend({
         this.set_current_user();
         this.$router.push({name: 'home'});
       } catch (error) {
-        this.error = 'Error';
+        this.error = error.body.errors.session[0].error;
       }
     }
   }

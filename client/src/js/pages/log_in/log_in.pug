@@ -1,7 +1,8 @@
-div
+div#login_form
   p {{$t('log_in.user')}}:
-    input(v-model="user")
+    input#User(v-model="user")
   p {{$t('log_in.password')}}:
-    input(v-model="password", type="password")
+    input#Password(v-model="password", type="password")
 
-  button(type="button", v-on:click="login") {{$t('log_in.log_in')}}
+  ns-field(:error="error")
+    button(type="button", v-on:click="login") {{$t('log_in.log_in')}}

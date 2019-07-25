@@ -62,6 +62,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'faker'
   gem 'timecop'
+  gem 'capybara'
+  gem 'webdrivers', require: 'webdrivers/chromedriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
