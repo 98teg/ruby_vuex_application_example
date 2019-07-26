@@ -33,14 +33,14 @@ RSpec.describe Comment, type: :model do
         expect(Comment.get(filter).first.content).to eq comment.content
       end
 
-      it 'get all the comments until today' do
+      it 'get all the comments until now' do
         FactoryBot.create_list(:comment, 3)
         filter = {}
         filter[:until] = Time.zone.now
         expect(Comment.get(filter).length).to eq 3
       end
 
-      it 'get all the comments since today' do
+      it 'get all the comments since now' do
         FactoryBot.create_list(:comment, 3)
         filter = {}
         filter[:since] = Time.zone.now
@@ -51,14 +51,14 @@ RSpec.describe Comment, type: :model do
         FactoryBot.create_list(:comment, 3)
         filter = {}
         filter[:user_id] = Comment.first.user_id
-        expect(Comment.get(filter).length).to_not eq 0
+        expect(Comment.get(filter).length).not_to eq 0
       end
 
       it 'get a comment using its post id' do
         FactoryBot.create_list(:comment, 3)
         filter = {}
         filter[:post_id] = Comment.first.post_id
-        expect(Comment.get(filter).length).to_not eq 0
+        expect(Comment.get(filter).length).not_to eq 0
       end
     end
 

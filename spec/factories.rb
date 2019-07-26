@@ -7,6 +7,8 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     password { 'foobar' }
 
+    before(:create, &:skip_confirmation!)
+
     factory :admin do
       after(:create) { |user| user.add_role(:admin) }
     end

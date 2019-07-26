@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://localhost:3000/users',
+  baseUrl: 'users',
 
   mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
@@ -28,9 +28,7 @@ export default {
   },
 
   update(id, data, options = {}) {
-    const sendData = data instanceof FormData ? data : {data};
-
-    return Vue.http.put(`${this.baseUrl}/${id}`, sendData, this.mergeOptions(options));
+    return Vue.http.put(`${this.baseUrl}/${id}`, {data}, this.mergeOptions(options));
   },
 
   save(data, options = {}) {

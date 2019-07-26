@@ -50748,13 +50748,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return API.sessions.create({}, {
-                  params: {
-                    session: {
-                      email: this.user,
-                      password: this.password
-                    }
-                  }
+                return API.sessions.create({
+                  email: this.user,
+                  password: this.password
                 });
 
               case 3:
@@ -51595,7 +51591,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData.append('data[content]', this.comment);
                 formData.append('data[post_id]', this.id);
                 _context3.next = 6;
-                return API.comments.create(formData);
+                return API.comments.create({
+                  content: this.comment,
+                  post_id: this.id
+                });
 
               case 6:
                 this.comment = '';
@@ -51836,7 +51835,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  baseUrl: 'http://localhost:3000/comments',
+  baseUrl: 'comments',
   mergeOptions: function mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
     var DEFAULT_OPTIONS = {
@@ -51866,19 +51865,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   create: function create(data) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var sendData = data instanceof FormData ? data : {
+    return Vue.http.post(this.baseUrl, {
       data: data
-    };
-    return Vue.http.post(this.baseUrl, sendData, this.mergeOptions(options)).then(function (response) {
+    }, this.mergeOptions(options)).then(function (response) {
       return response.body.data;
     });
   },
   update: function update(id, data) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var sendData = data instanceof FormData ? data : {
+    return Vue.http.put("".concat(this.baseUrl, "/").concat(id), {
       data: data
-    };
-    return Vue.http.put("".concat(this.baseUrl, "/").concat(id), sendData, this.mergeOptions(options));
+    }, this.mergeOptions(options));
   },
   save: function save(data) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -51909,7 +51906,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  baseUrl: 'http://localhost:3000/posts',
+  baseUrl: 'posts',
   mergeOptions: function mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
     var DEFAULT_OPTIONS = {
@@ -51979,7 +51976,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_assign__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  baseUrl: 'http://localhost:3000/session',
+  baseUrl: 'session',
   mergeOptions: function mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
     var DEFAULT_OPTIONS = {
@@ -51987,12 +51984,11 @@ __webpack_require__.r(__webpack_exports__);
     };
     return Object.assign({}, DEFAULT_OPTIONS, options);
   },
-  create: function create(data) {
+  create: function create(session) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var sendData = data instanceof FormData ? data : {
-      data: data
-    };
-    return Vue.http.post(this.baseUrl, sendData, this.mergeOptions(options)).then(function (response) {
+    return Vue.http.post(this.baseUrl, {
+      session: session
+    }, this.mergeOptions(options)).then(function (response) {
       if (response.ok) return response.body.session;else return null;
     });
   }
@@ -52017,7 +52013,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  baseUrl: 'http://localhost:3000/users',
+  baseUrl: 'users',
   mergeOptions: function mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
     var DEFAULT_OPTIONS = {
@@ -52047,10 +52043,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   update: function update(id, data) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    var sendData = data instanceof FormData ? data : {
+    return Vue.http.put("".concat(this.baseUrl, "/").concat(id), {
       data: data
-    };
-    return Vue.http.put("".concat(this.baseUrl, "/").concat(id), sendData, this.mergeOptions(options));
+    }, this.mergeOptions(options));
   },
   save: function save(data) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};

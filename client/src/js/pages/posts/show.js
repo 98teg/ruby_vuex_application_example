@@ -39,7 +39,7 @@ export default Vue.extend({
         formData.append('data[content]', this.comment);
         formData.append('data[post_id]', this.id);
 
-        await API.comments.create(formData);
+        await API.comments.create({content: this.comment, post_id: this.id});
 
         this.comment = '';
         this.wrongComment = false;

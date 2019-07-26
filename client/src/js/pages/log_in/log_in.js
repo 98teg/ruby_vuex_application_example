@@ -22,7 +22,7 @@ export default Vue.extend({
     async login() {
       try {
         const session = await API.sessions
-          .create({}, {params: {session: {email: this.user, password: this.password}}});
+          .create({email: this.user, password: this.password});
 
         localStorage.setItem('token', session.jwt);
         this.set_current_user();

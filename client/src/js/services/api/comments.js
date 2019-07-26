@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://localhost:3000/comments',
+  baseUrl: 'comments',
 
   mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
@@ -28,17 +28,13 @@ export default {
   },
 
   create(data, options = {}) {
-    const sendData = data instanceof FormData ? data : {data};
-
-    return Vue.http.post(this.baseUrl, sendData, this.mergeOptions(options)).then(
+    return Vue.http.post(this.baseUrl, {data}, this.mergeOptions(options)).then(
       response => { return response.body.data; }
     );
   },
 
   update(id, data, options = {}) {
-    const sendData = data instanceof FormData ? data : {data};
-
-    return Vue.http.put(`${this.baseUrl}/${id}`, sendData, this.mergeOptions(options));
+    return Vue.http.put(`${this.baseUrl}/${id}`, {data}, this.mergeOptions(options));
   },
 
   save(data, options = {}) {

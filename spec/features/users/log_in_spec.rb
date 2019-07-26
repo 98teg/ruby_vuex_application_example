@@ -24,31 +24,31 @@ RSpec.describe 'Log in', type: :feature, js: true do
     end
   end
 
-  describe ' Correct fields' do
+  describe 'Correct fields' do
     before do
-      user.skip_confirmation!
-      user.save
-
       visit '/#/login'
       fill_in 'User', with: user.email
       fill_in 'Password', with: 'foobar'
     end
 
-    it 'Has the correct user' do
-      expect(page).to have_field('User', with: user.email)
-    end
-
-    it 'Has the correct password' do
-      expect(page).to have_field('Password', with: 'foobar')
-    end
-
     it 'Goes to the home page' do
-      puts User.first.confirmed?
-      puts User.first.email == user.email
-      puts user.authenticate('foobar')
       click_button 'Log in'
 
       expect(page).to have_content('Title of the home page')
+    end
+  end
+
+  describe 'Incorrect fields' do
+    before do
+      visit '/#/login'
+      fill_in 'User', with: user.email
+      fill_in 'Password', with: 'fobar'
+    end
+
+    it 'Goes to the home page' do
+      click_button 'Log in'
+
+      expect(page).to have_no_content('Title of the home page')
     end
   end
 end

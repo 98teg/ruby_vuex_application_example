@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://localhost:3000/posts',
+  baseUrl: 'posts',
 
   mergeOptions(options) {
     // definimos el resource que será utilizado en el intersector para traducir los errores
