@@ -23,6 +23,8 @@ RSpec.describe 'Create post', type: :feature, js: true do
     before do
       fill_in 'Title', with: 'Example title'
       fill_in 'Content', with: 'Example content'
+      first('input#file', visible: false)
+        .set(Rails.root + 'spec/features/support/imagenEjemplo.jpeg')
       click_button 'Save post'
     end
 
@@ -43,6 +45,11 @@ RSpec.describe 'Create post', type: :feature, js: true do
     it 'the post in the server is the same' do
       page.find_button('Create post')
       expect(Post.first.content).to eq 'Example content'
+    end
+
+    it 'the post in the server has an image' do
+      page.find_button('Create post')
+      expect(Post.first.image.file).not_to eq nil
     end
   end
 end

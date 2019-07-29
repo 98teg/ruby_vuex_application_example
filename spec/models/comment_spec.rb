@@ -36,14 +36,14 @@ RSpec.describe Comment, type: :model do
       it 'get all the comments until now' do
         FactoryBot.create_list(:comment, 3)
         filter = {}
-        filter[:until] = Time.zone.now
+        filter[:until] = Time.zone.now + 2.hours
         expect(Comment.get(filter).length).to eq 3
       end
 
       it 'get all the comments since now' do
         FactoryBot.create_list(:comment, 3)
         filter = {}
-        filter[:since] = Time.zone.now
+        filter[:since] = Time.zone.now + 2.hours
         expect(Comment.get(filter).length).to eq 0
       end
 

@@ -37,7 +37,7 @@ div
         th(uid="content", is="ns-table-th", :order-icon="false") {{$t('posts_list.content')}}
     
     template(slot="tr", slot-scope="props")
-      tr(@click="postClick(props.row.id)")
+      tr#post(@click="postClick(props.row.id)")
         template
           td {{props.row.title}}
           td {{props.row.creation}}

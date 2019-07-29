@@ -35,7 +35,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'returns all information' do
         expect(JSON.parse(response.body)['data'].first.keys.map(&:to_sym)).to(
-          match_array(Comment.new.as_json(representation: :basic).keys)
+          match_array(comment.as_json(representation: :basic).keys)
         )
       end
     end
