@@ -6,16 +6,14 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.get(params[:filter])
-    @comments = Comment.order(@comments, params[:sort])
-    @comments = Comment.paginate(@comments, params[:page])
-
-    render_json @comments
+    render_index Comment.filter(params[:filter])
+                        .ordenate(params[:sort])
+                        .paginate(params[:page])
   end
 
   # GET /comments/1
   def show
-    render_json @comment
+    render_item @comment
   end
 
   # POST /comments
@@ -36,7 +34,7 @@ class CommentsController < ApplicationController
   def update
     authorize @comment
     if @comment.update(comment_params.merge(user_id: current_user.id))
-      render_json @comment
+      render_item @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -58,9 +56,5 @@ class CommentsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def comment_params
     params.require(:data).permit(:content, :post_id)
-  end
-
-  def render_json(comments)
-    render json: {data: comments.as_json(representation: :basic)}
   end
 end

@@ -4,23 +4,21 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.get(params[:filter])
-    @users = User.order(@users, params[:sort])
-    @users = User.paginate(@users, params[:page])
-
-    render_json @users
+    render_index User.filter(params[:filter])
+                     .ordenate(params[:sort])
+                     .paginate(params[:page])
   end
 
   # GET /users/1
   def show
-    render_json @user
+    render_item @user
   end
 
   # PATCH/PUT /users/1
   def update
     authorize @user
     if @user.update(user_params)
-      render_json @user
+      render_item @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -42,9 +40,5 @@ class UsersController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def user_params
     params.require(:data).permit(:name, :email)
-  end
-
-  def render_json(users)
-    render json: {data: users.as_json(representation: :basic)}
   end
 end

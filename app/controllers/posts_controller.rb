@@ -4,17 +4,14 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.get(params[:filter])
-    @count = @posts.count
-    @posts = Post.order(@posts, params[:sort])
-    @posts = Post.paginate(@posts, params[:page])
-
-    render_json(@posts, @count)
+    render_index Post.filter(params[:filter])
+                    .ordenate(params[:sort])
+                    .paginate(params[:page])
   end
 
   # GET /posts/1
   def show
-    render_json @post
+    render_item @post
   end
 
   # POST /posts
@@ -32,7 +29,7 @@ class PostsController < ApplicationController
   def update
     authorize @post
     if @post.update(post_params.merge(user_id: current_user.id))
-      render_json @post
+      render_item @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -54,9 +51,5 @@ class PostsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def post_params
     params.require(:data).permit(:title, :content, :image)
-  end
-
-  def render_json(posts, count=0)
-    render json: {data: posts.as_json(representation: :basic), meta: {total_count: count}}
   end
 end
