@@ -12,12 +12,12 @@ RSpec.describe CommentsCheckJob, type: :job do
     end
 
     it 'enqueues a communication job' do
-      expect { CommentsCheckJob.perform_later comment }
+      expect { CommentsCheckJob.perform_later comment.id }
         .to change(ActiveJob::Base.queue_adapter.enqueued_jobs, :size).by(1)
     end
 
     it 'does not sent any email' do
-      expect { perform_enqueued_jobs { CommentsCheckJob.perform_later comment } }
+      expect { perform_enqueued_jobs { CommentsCheckJob.perform_later comment.id } }
         .to change { ActionMailer::Base.deliveries.count }.by(0)
     end
   end
@@ -28,29 +28,29 @@ RSpec.describe CommentsCheckJob, type: :job do
     end
 
     it 'enqueues a communication job' do
-      expect { CommentsCheckJob.perform_later bad_comment }
+      expect { CommentsCheckJob.perform_later bad_comment.id }
         .to change(ActiveJob::Base.queue_adapter.enqueued_jobs, :size).by(1)
     end
 
     it 'sent an email' do
-      expect { perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment } }
+      expect { perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment.id } }
         .to change { ActionMailer::Base.deliveries.count }.by(1)
     end
 
     it 'has the correct destiny' do
-      perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment }
+      perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment.id }
       last_email = ActionMailer::Base.deliveries.last
       expect(last_email.to).to eq ['admin@email.com']
     end
 
     it 'has the correct subject' do
-      perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment }
+      perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment.id }
       last_email = ActionMailer::Base.deliveries.last
       expect(last_email.subject).to eq 'Estos comentarios contienen palabras baneadas'
     end
 
     it 'includes the comment\'s content' do
-      perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment }
+      perform_enqueued_jobs { CommentsCheckJob.perform_later bad_comment.id }
       last_email = ActionMailer::Base.deliveries.last
       expect(last_email.to_s).to include 'CACA :P'
     end

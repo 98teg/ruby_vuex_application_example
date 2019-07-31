@@ -1,13 +1,13 @@
 import VueRouter from 'vue-router';
 
 // Pages
-import Home from './pages/home/home.js';
-import Login from './pages/log_in/log_in.js';
+import Home from './pages/home/index.js';
+import Login from './pages/log_in/index.js';
 import Posts from './pages/posts/index.js';
 import Post from './pages/posts/show.js';
 import NewPost from './pages/posts/new.js';
 import EditPost from './pages/posts/edit.js';
-import Example from './pages/example/example.js';
+import Example from './pages/example/index.js';
 
 // Le indicamos a Vue que use VueRouter
 Vue.use(VueRouter);
@@ -33,6 +33,7 @@ const routes = [
     name: 'login',
     component: Login,
     meta: {
+      requiresNoAuth: true,
       layout: 'example'
     }
   },
@@ -46,14 +47,22 @@ const routes = [
   },
   {
     path: '/posts',
-    name: 'my posts',
+    name: 'myPosts',
     component: Posts,
     meta: {
       layout: 'default'
     }
   },
   {
-    path: '/post/:id',
+    path: '/posts/new',
+    name: 'createPost',
+    component: NewPost,
+    meta: {
+      layout: 'default'
+    }
+  },
+  {
+    path: '/posts/:id',
     name: 'post',
     component: Post,
     props: true,
@@ -62,16 +71,8 @@ const routes = [
     }
   },
   {
-    path: '/newpost',
-    name: 'create post',
-    component: NewPost,
-    meta: {
-      layout: 'default'
-    }
-  },
-  {
-    path: '/editpost/:id',
-    name: 'edit post',
+    path: '/posts/:id/edit',
+    name: 'editPost',
     component: EditPost,
     props: true,
     meta: {
@@ -88,5 +89,25 @@ const routes = [
 // You can pass in additional options here, but let's
 // keep it simple for now.
 const router = new VueRouter({routes});
+
+router.beforeEach(
+  (to, from, next) => {
+    if (to.meta.requiresNoAuth) {
+      // if route requires no auth
+      if (localStorage.getItem('token')) {
+        next(from);
+        return;
+      }
+    }
+    if (to.meta.requiresAuth) {
+      // if route requires no auth
+      if (!localStorage.getItem('token')) {
+        next(from);
+        return;
+      }
+    }
+    next();
+  }
+);
 
 export default router;

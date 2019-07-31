@@ -11,7 +11,7 @@ export default {
   },
 
   index(params = {}, options = {}) {
-    return Vue.http.get(this.baseUrl, options).then(
+    return Vue.http.get(this.baseUrl, params).then(
       response => {
         return {
           data: response.data.data,
@@ -22,7 +22,7 @@ export default {
   },
 
   show(id, params = {}, options = {}) {
-    return Vue.http.get(`${this.baseUrl}/${id}`, options).then(
+    return Vue.http.get(`${this.baseUrl}/${id}`, params).then(
       response => { return response.body.data; }
     );
   },

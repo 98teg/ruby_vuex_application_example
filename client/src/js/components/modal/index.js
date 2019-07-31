@@ -1,4 +1,4 @@
-import template from './modal.pug';
+import template from './index.pug';
 
 export default Vue.extend({
   template: template(),

@@ -21,17 +21,17 @@ class PostsController < ApplicationController
     if @post.save
       render json: {data: @post.as_json(representation: :basic)}, status: :created, location: @post
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors.details, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /posts/1
   def update
     authorize @post
-    if @post.update(post_params.merge(user_id: current_user.id))
+    if @post.update(post_params)
       render_item @post
     else
-      render json: @post.errors, status: :unprocessable_entity
+      render json: @post.errors.details, status: :unprocessable_entity
     end
   end
 

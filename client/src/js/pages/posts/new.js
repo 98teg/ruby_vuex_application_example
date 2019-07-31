@@ -33,7 +33,7 @@ export default Vue.extend({
         formData.append('data[image]', this.$children[0].image);
 
         await API.posts.create(formData);
-        this.$router.push({name: 'my posts'});
+        this.$router.push({name: 'myPosts'});
       } catch (error) {
         if (error.body.title != null) {
           this.$children[0].wrongTitle = true;

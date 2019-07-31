@@ -13,7 +13,7 @@ import draggable from 'vuedraggable';
 
 // import VuejsDialog from 'vuejs-dialog';
 
-import DefaultLayout from 'js/layouts/default/default.js';
+import DefaultLayout from 'js/layouts/default';
 import ExampleLayout from 'js/layouts/example';
 
 import router from 'js/router.js';

@@ -9,11 +9,6 @@ RSpec.describe CommentsController, type: :controller do
       FactoryBot.create(:comment, user: user)
     end
   }
-  # let(:post_by_user) {
-  #   lambda do |user|
-  #     FactoryBot.create(:post, user: user)
-  #   end
-  # }
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
   let(:admin) { FactoryBot.create(:admin) }
@@ -35,7 +30,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'returns all information' do
         expect(JSON.parse(response.body)['data'].first.keys.map(&:to_sym)).to(
-          match_array(comment.as_json(representation: :basic).keys)
+          match_array(%i[content creation post_id user_id author id])
         )
       end
     end
@@ -144,9 +139,9 @@ RSpec.describe CommentsController, type: :controller do
         end
       end
 
-      it 'creates a job' do
+      it 'creates two jobs' do
         expect { post :create, params: {data: {post_id: post1.id, content: 'Content'}} }
-          .to change(ActiveJob::Base.queue_adapter.enqueued_jobs, :size).by(1)
+          .to change(ActiveJob::Base.queue_adapter.enqueued_jobs, :size).by(2)
       end
     end
   end

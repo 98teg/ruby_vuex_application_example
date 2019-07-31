@@ -1,8 +1,8 @@
-div#login_form
+form#login_form(@submit.prevent = "login")
   p {{$t('log_in.user')}}:
     input#User(v-model="user")
   p {{$t('log_in.password')}}:
     input#Password(v-model="password", type="password")
 
   ns-field(:error="error")
-    button(type="button", v-on:click="login") {{$t('log_in.log_in')}}
+    input(type="submit", v-on:click="login", :value="$t('log_in.log_in')")

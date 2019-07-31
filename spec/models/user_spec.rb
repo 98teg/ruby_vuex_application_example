@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:users) { create_list(:user, 3) }
+
   describe 'Fields' do
     it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:email).of_type(:string) }
@@ -25,7 +27,7 @@ RSpec.describe User, type: :model do
   describe 'Hooks' do
     describe '.after_create' do
       it 'call method assign_default_role' do
-        user = FactoryBot.create(:user)
+        user = create(:user)
         expect(user).to have_role(:user)
       end
     end
@@ -34,13 +36,13 @@ RSpec.describe User, type: :model do
   describe 'Methods' do
     describe '.filter' do
       it 'get all users' do
-        FactoryBot.create_list(:user, 3)
+        users
         expect(User.filter.count).to be 3
       end
 
       it 'get an user using his name' do
-        FactoryBot.create_list(:user, 3)
-        user = User.first
+        users
+        user = users.first
         filters = {}
         filters[:name] = user.name
         expect(User.filter(filters).count).to be 1
@@ -48,8 +50,8 @@ RSpec.describe User, type: :model do
       end
 
       it 'get an user using his email' do
-        FactoryBot.create_list(:user, 3)
-        user = User.first
+        users
+        user = users.first
         filters = {}
         filters[:email] = user.email
         expect(User.filter(filters).count).to be 1
@@ -57,8 +59,8 @@ RSpec.describe User, type: :model do
       end
 
       it 'get an user using both his name and his email' do
-        FactoryBot.create_list(:user, 3)
-        user = User.first
+        users
+        user = users.first
         filters = {}
         filters[:name] = user.name
         filters[:email] = user.email
@@ -67,24 +69,24 @@ RSpec.describe User, type: :model do
       end
 
       it 'failing because of a different name and email' do
-        FactoryBot.create_list(:user, 3)
-        user1 = User.first
-        user2 = User.second
+        users
+        user = users.first
+        other_user = users.second
         filters = {}
-        filters[:name] = user1.name
-        filters[:email] = user2.email
+        filters[:name] = user.name
+        filters[:email] = other_user.email
         expect(User.filter(filters).count).to be 0
       end
     end
 
     describe '.ordenate' do
       it 'any sort at all' do
-        FactoryBot.create_list(:user, 3)
+        users
         expect(User.ordenate).to eq User.all
       end
 
       it 'sort by name' do
-        FactoryBot.create_list(:user, 3)
+        users
         sort = 'name'
         expect(User.ordenate(sort)).to eq User.all.order('name ASC')
         sort = '-name'
@@ -92,7 +94,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'sort by email' do
-        FactoryBot.create_list(:user, 3)
+        users
         sort = 'email'
         expect(User.ordenate(sort)).to eq User.all.order('email ASC')
         sort = '-email'
@@ -100,7 +102,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'sort by name and email' do
-        FactoryBot.create_list(:user, 3)
+        users
         sort = 'name,email'
         expect(User.ordenate(sort)).to eq User.all.order('name ASC, email ASC')
       end
@@ -108,12 +110,12 @@ RSpec.describe User, type: :model do
 
     describe '.paginate' do
       it 'any pagination at all' do
-        FactoryBot.create_list(:user, 30)
+        create_list(:user, 30)
         expect(User.paginate.count).to be 10
       end
 
       it 'paginate per 2' do
-        FactoryBot.create_list(:user, 3)
+        users
         page = {}
         page[:size] = 2
         expect(User.paginate(page).count).to be 2
@@ -124,8 +126,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'paginate per 1' do
-        FactoryBot.create_list(:user, 3)
-        filter = {}
+        users
         page = {}
         page[:size] = 1
         page[:number] = 1

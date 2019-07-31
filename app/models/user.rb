@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: {maximum: 64}
   validates :email, presence: true,
                     uniqueness: true,
-                    format: URI::MailTo::EMAIL_REGEXP
+                    format: {with: URI::MailTo::EMAIL_REGEXP, allow_blank: true}
 
   scope :name_filter, ->(name) { where("name LIKE '%#{name.gsub("'", "''")}%'") }
   scope :email_filter, ->(email) { where("email = '#{email.gsub("'", "''")}'") }

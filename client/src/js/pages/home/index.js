@@ -1,6 +1,6 @@
-import PostListComponent from 'js/components/posts_list/posts_list.js';
+import PostListComponent from 'js/components/posts_list/index.js';
 
-import template from './home.pug';
+import template from './index.pug';
 
 Vue.component('postslist-component', PostListComponent);
 

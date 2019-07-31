@@ -29,7 +29,7 @@ RSpec.describe PostsController, type: :controller do
 
       it 'returns all information' do
         expect(JSON.parse(response.body)['data'].first.keys.map(&:to_sym)).to(
-          match_array(post1.as_json(representation: :basic).keys)
+          match_array(%i[title content image creation user_id author id])
         )
       end
     end

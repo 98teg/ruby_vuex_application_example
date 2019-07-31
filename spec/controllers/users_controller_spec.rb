@@ -23,7 +23,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'returns all information' do
         expect(JSON.parse(response.body)['data'].first.keys.map(&:to_sym)).to(
-          match_array(User.new.as_json(representation: :basic).keys)
+          match_array(%i[name email id creation role])
         )
       end
     end

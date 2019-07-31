@@ -6,7 +6,7 @@ RSpec.describe 'Create post', type: :feature, js: true do
   before do
     login user
 
-    visit '/#/newpost'
+    visit '/#/posts/new'
   end
 
   describe 'Empty fields' do
@@ -15,7 +15,7 @@ RSpec.describe 'Create post', type: :feature, js: true do
     end
 
     it 'shows error message' do
-      expect(page).to have_content('can\'t be blank')
+      expect(page).to have_content('{ "error": "blank" }')
     end
   end
 

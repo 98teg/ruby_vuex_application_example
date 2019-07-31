@@ -1,26 +1,27 @@
 div
-  ns-field(
-    for="title"
-    :label="$t('posts_list.titleSearch')")
-    ns-input(id="title" v-model="filterTitle")
-  ns-field(
-    for="content"
-    :label="$t('posts_list.contentSearch')")
-    ns-input(id="content" v-model="filterContent")
-  ns-field(
-    for="author"
-    :label="$t('posts_list.authorSearch')")
-    ns-input(id="author" v-model="filterUserID")
-  ns-field(
-    for="since"
-    :label="$t('posts_list.since')")
-    ns-input(id="since" v-model="filterSince" type="date")
-  ns-field(
-    for="until"
-    :label="$t('posts_list.until')")
-    ns-input(id="until" v-model="filterUntil" type="date")
+  form#filter_form(@submit.prevent = "getPosts")
+    ns-field(
+      for="title"
+      :label="$t('posts_list.titleSearch')")
+      ns-input(id="title" v-model="filterTitle")
+    ns-field(
+      for="content"
+      :label="$t('posts_list.contentSearch')")
+      ns-input(id="content" v-model="filterContent")
+    ns-field(
+      for="author"
+      :label="$t('posts_list.authorSearch')")
+      ns-input(id="author" v-model="filterUserID")
+    ns-field(
+      for="since"
+      :label="$t('posts_list.since')")
+      ns-input(id="since" v-model="filterSince" type="date")
+    ns-field(
+      for="until"
+      :label="$t('posts_list.until')")
+      ns-input(id="until" v-model="filterUntil" type="date")
 
-  button(type="button", v-on:click="getPosts") {{$t('posts_list.apply')}}
+    input(type="submit", v-on:click="getPosts", :value="$t('posts_list.apply')")
 
   h4 {{$t('posts_list.posts_list')}}
 

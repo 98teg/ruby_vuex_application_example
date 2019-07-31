@@ -21,22 +21,19 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params.merge(user_id: current_user.id))
 
     if @comment.save
-      CommentNotificationMailer.with(comment: @comment)
-                               .send_notification.deliver_now
-      CommentsCheckJob.perform_later @comment
       render json: @comment, status: :created, location: @comment
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: @comment.errors.details, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /comments/1
   def update
     authorize @comment
-    if @comment.update(comment_params.merge(user_id: current_user.id))
+    if @comment.update(comment_params)
       render_item @comment
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: @comment.errors.details, status: :unprocessable_entity
     end
   end
 

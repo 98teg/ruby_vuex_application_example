@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render_item @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors.details, status: :unprocessable_entity
     end
   end
 

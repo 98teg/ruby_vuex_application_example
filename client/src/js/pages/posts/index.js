@@ -1,5 +1,5 @@
 import jwt_decode from 'jwt-decode';
-import ModalComponent from 'js/components/modal/modal.js';
+import ModalComponent from 'js/components/modal/index.js';
 import template from './index.pug';
 
 export default Vue.extend({
@@ -33,14 +33,15 @@ export default Vue.extend({
     async getPosts() {
       const {user_id} = jwt_decode(localStorage.getItem('token'));
 
-      const result = await API.posts.index({},
+      const result = await API.posts.index(
         {
-          params: Object.assign({}, {
+          params: Object.assign({
             filter: {user_id},
             page: {size: this.pagination.limit, number: this.pagination.currentPage}
           },
           this.lastSort)
-        });
+        }
+      );
 
       this.pagination.totalElements = result.meta.total_count;
       this.posts = result.data;
@@ -68,13 +69,15 @@ export default Vue.extend({
     },
 
     async editPost(id) {
-      this.$router.push({name: 'edit post', params: {id}});
+      this.$router.push({name: 'editPost', params: {id}});
     },
 
     async deletePost(id) {
-      await API.posts.destroy(id);
+      if (confirm('¿Realmente quiere eliminar este post?')) {
+        await API.posts.destroy(id);
 
-      this.getPosts();
+        this.getPosts();
+      }
     },
 
     postClick(id) {

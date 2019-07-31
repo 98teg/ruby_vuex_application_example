@@ -1,5 +1,5 @@
 import {mapActions} from 'vuex';
-import template from './log_in.pug';
+import template from './index.pug';
 
 export default Vue.extend({
   template: template(),

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
+  let(:posts) { create_list(:post, 3) }
+
   describe 'Fields' do
     it { is_expected.to have_db_column(:title).of_type(:string) }
     it { is_expected.to have_db_column(:content).of_type(:text) }
@@ -20,14 +22,12 @@ RSpec.describe Post, type: :model do
   describe 'Methods' do
     describe '.filter' do
       it 'get all posts' do
-        FactoryBot.create_list(:post, 3)
-        filter = {}
-        expect(Post.filter(filter).count).to eq 3
+        posts
+        expect(Post.filter.count).to eq 3
       end
 
       it 'get a post using its title' do
-        FactoryBot.create_list(:post, 3)
-        post = Post.first
+        post = posts.first
         filter = {}
         filter[:title] = post.title
         expect(Post.filter(filter).count).to eq 1
@@ -35,8 +35,7 @@ RSpec.describe Post, type: :model do
       end
 
       it 'get a post using its content' do
-        FactoryBot.create_list(:post, 3)
-        post = Post.first
+        post = posts.first
         filter = {}
         filter[:content] = post.content
         expect(Post.filter(filter).count).to eq 1
@@ -44,21 +43,21 @@ RSpec.describe Post, type: :model do
       end
 
       it 'get all the posts until today' do
-        FactoryBot.create_list(:post, 3)
+        posts
         filter = {}
         filter[:until] = Time.zone.now + 2.hours
         expect(Post.filter(filter).count).to eq 3
       end
 
       it 'get all the posts since today' do
-        FactoryBot.create_list(:post, 3)
+        posts
         filter = {}
         filter[:since] = Time.zone.now + 2.hours
         expect(Post.filter(filter).count).to eq 0
       end
 
       it 'get a post using its user id' do
-        FactoryBot.create_list(:post, 3)
+        posts
         filter = {}
         filter[:user_id] = Post.first.user_id
         expect(Post.filter(filter).count).not_to eq 0
@@ -67,13 +66,12 @@ RSpec.describe Post, type: :model do
 
     describe '.ordenate' do
       it 'any sort at all' do
-        FactoryBot.create_list(:post, 3)
-        sort = ''
-        expect(Post.ordenate(sort)).to eq Post.all
+        posts
+        expect(Post.ordenate).to eq Post.all
       end
 
       it 'sort by title' do
-        FactoryBot.create_list(:post, 3)
+        posts
         sort = 'title'
         expect(Post.ordenate(sort)).to eq Post.all.order('title ASC')
         sort = '-title'
@@ -81,7 +79,7 @@ RSpec.describe Post, type: :model do
       end
 
       it 'sort by creation date' do
-        FactoryBot.create_list(:post, 3)
+        posts
         sort = 'created_at'
         expect(Post.ordenate(sort)).to eq Post.all
                                               .order('created_at ASC')
@@ -91,7 +89,7 @@ RSpec.describe Post, type: :model do
       end
 
       it 'sort by author\'s name' do
-        FactoryBot.create_list(:post, 3)
+        posts
         sort = 'user_name'
         expect(Post.ordenate(sort)).to eq Post.all.includes(:user)
                                               .order('users.name ASC')
@@ -103,12 +101,12 @@ RSpec.describe Post, type: :model do
 
     describe '.paginate' do
       it 'any pagination at all' do
-        FactoryBot.create_list(:post, 30)
+        create_list(:post, 30)
         expect(Post.paginate.count).to be 10
       end
 
       it 'paginate per 2' do
-        FactoryBot.create_list(:post, 3)
+        posts
         page = {}
         page[:size] = 2
         expect(Post.paginate(page).count).to be 2
@@ -119,7 +117,7 @@ RSpec.describe Post, type: :model do
       end
 
       it 'paginate per 1' do
-        FactoryBot.create_list(:post, 3)
+        posts
         page = {}
         page[:size] = 1
         page[:number] = 1

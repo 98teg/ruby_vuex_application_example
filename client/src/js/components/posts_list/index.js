@@ -1,4 +1,4 @@
-import template from './posts_list.pug';
+import template from './index.pug';
 
 export default Vue.extend({
   template: template(),
@@ -53,7 +53,7 @@ export default Vue.extend({
         {page: {size: this.pagination.limit, number: this.pagination.currentPage}}, temp);
     },
     async getPosts() {
-      const result = await API.posts.index({}, {params: this.getParams(this.lastSort)});
+      const result = await API.posts.index({params: this.getParams(this.lastSort)});
 
       this.posts = result.data;
       this.pagination.totalElements = result.meta.total_count;

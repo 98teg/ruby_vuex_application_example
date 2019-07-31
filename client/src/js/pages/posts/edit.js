@@ -44,7 +44,7 @@ export default Vue.extend({
         }
 
         await API.posts.update(this.id, formData);
-        this.$router.push({name: 'my posts'});
+        this.$router.push({name: 'myPosts'});
       } catch (error) {
         if (error.body.title != null) {
           this.$children[0].wrongTitle = true;
